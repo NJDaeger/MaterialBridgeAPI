@@ -1,4 +1,4 @@
-package com.njdaeger.mbapi;
+package com.njdaeger.mbapi.data;
 
 public final class LegacyData {
     
@@ -14,8 +14,8 @@ public final class LegacyData {
         return id;
     }
     
-    public int getDurability() {
-        return durability;
+    public short getDurability() {
+        return Short.parseShort(Integer.toString(durability));
     }
     
 }

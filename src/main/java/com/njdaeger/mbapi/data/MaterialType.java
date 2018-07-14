@@ -1,13 +1,13 @@
-package com.njdaeger.mbapi.type;
+package com.njdaeger.mbapi.data;
 
-import com.njdaeger.mbapi.LegacyData;
 import com.njdaeger.mbapi.Material;
+import static com.njdaeger.mbapi.MaterialBridge.isPretechnical;
 
-public abstract class BlockType<T extends BlockType> {
+public abstract class MaterialType<T extends MaterialType> {
     
     private final Material<T> material;
     
-    public BlockType(Material<T> material) {
+    public MaterialType(Material<T> material) {
         this.material = material;
     }
     
@@ -52,7 +52,6 @@ public abstract class BlockType<T extends BlockType> {
     }
     
     public org.bukkit.Material getBukkitMaterial() {
-        return material.getMaterial();
+        return material.getBukkitMaterial();
     }
-    
 }

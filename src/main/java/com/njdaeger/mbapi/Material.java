@@ -1,46 +1,49 @@
 package com.njdaeger.mbapi;
 
-import com.njdaeger.mbapi.type.BlockType;
-import com.njdaeger.mbapi.type.Button;
+import com.njdaeger.mbapi.data.LegacyData;
+import com.njdaeger.mbapi.data.MaterialType;
+import com.njdaeger.mbapi.type.specific.Switch;
+import com.njdaeger.mbapi.type.Item;
 import com.njdaeger.mbapi.type.Standard;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 
-@SuppressWarnings({"unused", "WeakerAccess"})
-public final class Material<T extends BlockType> {
+@SuppressWarnings({"unused", "WeakerAccess", "unchecked"})
+public final class Material<T extends MaterialType> {
     
     private static final HashMap<String, Material<?>> MATERIALS = new HashMap<>();
     private static final Collection<Material<?>> MATERIAL_PRE_MAP = new ArrayList<>();
     
-    public static final Material<Standard> ACACIA_BOAT = new Material<>("BOAT_ACACIA","ACACIA_BOAT", "acacia_boat", 1, new LegacyData(447, 0));
-    public static final Material<Button> ACACIA_BUTTON = new Material<>("ACACIA_BUTTON", "acacia_button");
-    public static final Material ACACIA_DOOR = new Material("ACACIA_DOOR", "acacia_door", new LegacyData(196, 0));
-    public static final Material ACACIA_DOOR_ITEM = new Material("ACACIA_DOOR_ITEM", "ACACIA_DOOR", "acacia_door", new LegacyData(430, 0));
-    public static final Material ACACIA_FENCE = new Material("ACACIA_FENCE", "acacia_fence", new LegacyData(192, 0));
-    public static final Material ACACIA_FENCE_GATE = new Material("ACACIA_FENCE_GATE", "acacia_fence_gate", new LegacyData(187, 0));
-    public static final Material ACACIA_STAIRS = new Material("ACACIA_STAIRS", "acacia_stairs", new LegacyData(163, 0));
-    public static final Material ACACIA_LEAVES = new Material("LEAVES_2", "ACACIA_LEAVES", "acacia_leaves", "leaves2", new LegacyData(161, 0));
-    public static final Material ACACIA_LOG = new Material("LOG_2", "ACACIA_LOG", "log2", "acacia_log", new LegacyData(162, 0));
-    public static final Material ACACIA_PLANKS = new Material("WOOD", "ACACIA_PLANKS", "acacia_planks", "planks", new LegacyData(5, 4));
-    public static final Material ACACIA_PRESSURE_PLATE = new Material("ACACIA_PRESSURE_PLATE", "acacia_pressure_plate");
-    public static final Material ACACIA_SAPLING = new Material("SAPLING", "ACACIA_SAPLING", "sapling", "acacia_sapling", new LegacyData(6, 4));
-    public static final Material ACACIA_SLAB = new Material("WOOD_STEP", "ACACIA_SLAB", "wooden_slab", "acacia_slab", new LegacyData(126, 4));
-    public static final Material ACACIA_TRAPDOOR = new Material("ACACIA_TRAPDOOR", "acacia_trapdoor");
-    public static final Material ACACIA_BARK = new Material("LOG_2", "ACACIA_WOOD", "log_2", "acacia_wood", new LegacyData(162, 12));
-    public static final Material ACTIVATOR_RAIL = new Material("ACTIVATOR_RAIL", "activator_rail", new LegacyData(157, 0));
-    public static final Material ALLIUM = new Material("RED_ROSE", "ALLIUM", "red_flower", "allium", new LegacyData(38, 2));
-    public static final Material ANDESITE = new Material("STONE", "ANDESITE", "stone", "andesite", new LegacyData(1, 5));
-    public static final Material ANVIL = new Material("ANVIL", "ANVIL", "anvil", new LegacyData(145, 0));
-    public static final Material APPLE = new Material("APPLE", "apple", new LegacyData(260, 0));
-    public static final Material ARMOR_STAND = new Material("ARMOR_STAND", "armor_stand", new LegacyData(460, 0));
-    public static final Material ARROW = new Material("ARROW", "arrow", new LegacyData(262, 0));
-    public static final Material AZURE_BLUET = new Material("RED_ROSE", "AZURE_BLUET", "red_flower", "azure_bluet", new LegacyData(38, 3));
-    public static final Material ATTACHED_PUMPKIN_STEM = new Material("PUMPKIN_STEM", "ATTACHED_PUMPKIN_STEM", "pumpkin_stem", new LegacyData(104, 0));
-    public static final Material ATTACHED_MELON_STEM = new Material("MELON_STEM", "ATTACHED_MELON_STEM", "melon_stem", new LegacyData(105, 0));
+    public static final Material<Item> ACACIA_BOAT = new Material<>("BOAT_ACACIA","ACACIA_BOAT", "acacia_boat", 1, new LegacyData(447, 0));
+    public static final Material<Switch> ACACIA_BUTTON = new Material<>(Switch.class, "ACACIA_BUTTON", "acacia_button");
+    public static final Material<Standard> ACACIA_DOOR = new Material<>("ACACIA_DOOR", "acacia_door", new LegacyData(196, 0));
+    public static final Material<Item> ACACIA_DOOR_ITEM = new Material<>("ACACIA_DOOR_ITEM", "ACACIA_DOOR", "acacia_door", new LegacyData(430, 0));
+    public static final Material<Standard> ACACIA_FENCE = new Material<>("ACACIA_FENCE", "acacia_fence", new LegacyData(192, 0));
+    public static final Material<Standard> ACACIA_FENCE_GATE = new Material<>("ACACIA_FENCE_GATE", "acacia_fence_gate", new LegacyData(187, 0));
+    public static final Material<Standard> ACACIA_STAIRS = new Material<>("ACACIA_STAIRS", "acacia_stairs", new LegacyData(163, 0));
+    public static final Material<Standard> ACACIA_LEAVES = new Material<>("LEAVES_2", "ACACIA_LEAVES", "acacia_leaves", "leaves2", new LegacyData(161, 0));
+    public static final Material<Standard> ACACIA_LOG = new Material<>("LOG_2", "ACACIA_LOG", "log2", "acacia_log", new LegacyData(162, 0));
+    public static final Material<Standard> ACACIA_PLANKS = new Material<>("WOOD", "ACACIA_PLANKS", "acacia_planks", "planks", new LegacyData(5, 4));
+    public static final Material<Standard> ACACIA_PRESSURE_PLATE = new Material<>("ACACIA_PRESSURE_PLATE", "acacia_pressure_plate");
+    public static final Material<Standard> ACACIA_SAPLING = new Material<>("SAPLING", "ACACIA_SAPLING", "sapling", "acacia_sapling", new LegacyData(6, 4));
+    public static final Material<Standard> ACACIA_SLAB = new Material<>("WOOD_STEP", "ACACIA_SLAB", "wooden_slab", "acacia_slab", new LegacyData(126, 4));
+    public static final Material<Standard> ACACIA_TRAPDOOR = new Material<>("ACACIA_TRAPDOOR", "acacia_trapdoor");
+    public static final Material<Standard> ACACIA_BARK = new Material<>("LOG_2", "ACACIA_WOOD", "log_2", "acacia_wood", new LegacyData(162, 12));
+    public static final Material<Standard> ACTIVATOR_RAIL = new Material<>("ACTIVATOR_RAIL", "activator_rail", new LegacyData(157, 0));
+    public static final Material<Standard> ALLIUM = new Material<>("RED_ROSE", "ALLIUM", "red_flower", "allium", new LegacyData(38, 2));
+    public static final Material<Standard> ANDESITE = new Material<>("STONE", "ANDESITE", "stone", "andesite", new LegacyData(1, 5));
+    public static final Material<Standard> ANVIL = new Material<>("ANVIL", "ANVIL", "anvil", new LegacyData(145, 0));
+    public static final Material<Item> APPLE = new Material<>("APPLE", "apple", new LegacyData(260, 0));
+    public static final Material<Item> ARMOR_STAND = new Material<>("ARMOR_STAND", "armor_stand", new LegacyData(460, 0));
+    public static final Material<Item> ARROW = new Material<>("ARROW", "arrow", new LegacyData(262, 0));
+    public static final Material<Standard> AZURE_BLUET = new Material<>("RED_ROSE", "AZURE_BLUET", "red_flower", "azure_bluet", new LegacyData(38, 3));
+    public static final Material<Standard> ATTACHED_PUMPKIN_STEM = new Material<>("PUMPKIN_STEM", "ATTACHED_PUMPKIN_STEM", "pumpkin_stem", new LegacyData(104, 0));
+    public static final Material<Standard> ATTACHED_MELON_STEM = new Material<>("MELON_STEM", "ATTACHED_MELON_STEM", "melon_stem", new LegacyData(105, 0));
     
     
     
@@ -69,8 +72,10 @@ public final class Material<T extends BlockType> {
     private final int ordinal;
     private final int maxStack;
     private final LegacyData legacyData;
+    private final Class<T> type;
     
-    private Material(String legacyId, String currentId, String legacyNominalId, String currentNominalId, int maxStack, LegacyData legacyData) {
+    private Material(Class<T> type, String legacyId, String currentId, String legacyNominalId, String currentNominalId, int maxStack, LegacyData legacyData) {
+        this.type = type;
         this.ordinal = MATERIAL_PRE_MAP.size();
         MATERIAL_PRE_MAP.add(this);
         this.legacy = legacyId;
@@ -81,32 +86,65 @@ public final class Material<T extends BlockType> {
         this.currentNominalId = currentNominalId;
     }
     
+    private Material(String legacyId, String currentId, String legacyNominalId, String currentNominalId, int maxStack, LegacyData legacyData) {
+        this((Class<T>)Standard.class, legacyId, currentId, legacyNominalId, currentNominalId, maxStack, legacyData);
+    }
+    
+    private Material(Class<T> type, String legacyId, String currentId, String legacyNominalId, String currentNominalId, LegacyData legacyData) {
+        this(type, legacyId, currentId, legacyNominalId, currentNominalId, 64, legacyData);
+    }
+    
     private Material(String legacyId, String currentId, String legacyNominalId, String currentNominalId, LegacyData legacyData) {
-        this(legacyId, currentId, legacyNominalId, currentNominalId, 64, legacyData);
+        this((Class<T>)Standard.class, legacyId, currentId, legacyNominalId, currentNominalId, 64, legacyData);
+    }
+    
+    private Material(Class<T> type, String legacyId, String currentId, String nominalId, int maxStack, LegacyData legacyData) {
+        this(type, legacyId, currentId, nominalId, nominalId, maxStack, legacyData);
     }
     
     private Material(String legacyId, String currentId, String nominalId, int maxStack, LegacyData legacyData) {
-        this(legacyId, currentId, nominalId, nominalId, maxStack, legacyData);
+        this((Class<T>)Standard.class, legacyId, currentId, nominalId, nominalId, maxStack, legacyData);
+    }
+    
+    private Material(Class<T> type, String legacyId, String currentId, String nominalId, LegacyData legacyData) {
+        this(type, legacyId, currentId, nominalId, 64, legacyData);
     }
     
     private Material(String legacyId, String currentId, String nominalId, LegacyData legacyData) {
-        this(legacyId, currentId, nominalId, 64, legacyData);
+        this((Class<T>)Standard.class, legacyId, currentId, nominalId, 64, legacyData);
+    }
+    
+    private Material(Class<T> type, String id, String nominalId, int maxStack, LegacyData legacyData) {
+        this(type, id, id, nominalId, maxStack, legacyData);
     }
     
     private Material(String id, String nominalId, int maxStack, LegacyData legacyData) {
-        this(id, id, nominalId, maxStack, legacyData);
+        this((Class<T>)Standard.class, id, id, nominalId, maxStack, legacyData);
+    }
+    
+    
+    private Material(Class<T> type, String id, String nominalid, LegacyData legacyData) {
+        this(type, id, nominalid, 64, legacyData);
     }
     
     private Material(String id, String nominalId, LegacyData legacyData) {
-        this(id, nominalId, 64, legacyData);
+        this((Class<T>)Standard.class, id, nominalId, legacyData);
+    }
+    
+    private Material(Class<T> type, String id, String nominalId, int maxStack) {
+        this(type, null, id, null, nominalId, maxStack, null);
     }
     
     private Material(String id, String nominalId, int maxStack) {
-        this(null, id, null, nominalId, maxStack, null);
+        this((Class<T>)Standard.class, id, nominalId, maxStack);
+    }
+    
+    private Material(Class<T> type, String id, String nominalId) {
+        this(type, id, nominalId, 64);
     }
     
     private Material(String id, String nominalId) {
-        this(id, nominalId, 64);
+        this((Class<T>)Standard.class, id, nominalId);
     }
     
     /**
@@ -186,16 +224,34 @@ public final class Material<T extends BlockType> {
         return MaterialBridge.getVersion() == Version.PRETECHNICAL ? legacyNominalId : currentNominalId;
     }
     
-    public final BaseBlock<T> getBlock() {
-        return new BaseBlock<>(this);
+    /**
+     * Get the class type of this material.
+     * @return The material class type.
+     */
+    public Class<T> getType() {
+        return type;
+    }
+    
+    /**
+     * Get the MaterialType of this material.
+     * @return The material type of this material.
+     */
+    public final T get() {
+        try {
+            return type.getConstructor(Material.class).newInstance(this);
+        }
+        catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        throw new TypeNotCreatedException(constantName);
     }
     
     /**
      * Gets the Bukkit {@link org.bukkit.Material} corresponding to the version.
      * @return The material to be used
      */
-    public final org.bukkit.Material getMaterial() {
-        if (MaterialBridge.getVersion() == Version.PRETECHNICAL) {
+    public final org.bukkit.Material getBukkitMaterial() {
+        if (MaterialBridge.isPretechnical()) {
             if (!hasLegacyData()) return null;
             else return org.bukkit.Material.valueOf(legacy);
         }
@@ -224,7 +280,19 @@ public final class Material<T extends BlockType> {
     }
     
     /**
-     * Gets a material via its enum name.
+     * Gets the MPAPI instance of the given Bukkit Material.
+     * @param bukkitMaterial The Bukkit Material to be converted.
+     * @return The corresponding bukkit material.
+     */
+    public static Material<?> of(org.bukkit.Material bukkitMaterial) {
+        for (Material<?> material : values()) {
+            if (material.getName().equals(bukkitMaterial.name())) return material;
+        }
+        return null;
+    }
+    
+    /**
+     * Gets a material via its constant name in this class.
      * @param name The name of the material constant
      * @return The material if it exists.
      * @throws NullPointerException if the name specified is null
@@ -246,7 +314,7 @@ public final class Material<T extends BlockType> {
      * @throws IllegalArgumentException if the name specified is not a present constant
      */
     @SuppressWarnings("unchecked")
-    public static <T extends BlockType> Material<T> valueOf(Class<T> blockType, String name) {
+    public static <T extends MaterialType> Material<T> valueOf(Class<T> blockType, String name) {
         return (Material<T>)valueOf(name);
     }
     

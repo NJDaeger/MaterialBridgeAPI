@@ -1,7 +1,6 @@
 package com.njdaeger.mbapi;
 
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
@@ -19,10 +18,9 @@ public class MaterialBridge extends JavaPlugin {
         version = Version.getVersionByNumber(parsed);
     
         getLogger().log(Level.INFO, "MBAPI Support Version: " + version.name() + " (" + version.getSupport() + ")");
-    
-        System.out.println(Arrays.toString(Material.values()));
+        System.out.println(Material.ACACIA_BUTTON.get().isPowered());
         
-        Bukkit.getServicesManager().register(MaterialBridge.class, this, this, ServicePriority.High);
+        System.out.println(Arrays.toString(Material.values()));
     }
     
     @Override
@@ -32,6 +30,10 @@ public class MaterialBridge extends JavaPlugin {
     
     public static Version getVersion() {
         return version;
+    }
+    
+    public static boolean isPretechnical() {
+        return version == Version.PRETECHNICAL;
     }
     
 }

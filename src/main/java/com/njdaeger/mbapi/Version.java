@@ -24,4 +24,5 @@ public enum Version {
     public static Version getVersionByNumber(int number) {
         return number <= 112 ? PRETECHNICAL : TECHNICAL;
     }
+    
 }
