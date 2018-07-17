@@ -1,10 +1,9 @@
 package com.njdaeger.mbapi.type;
 
 import com.njdaeger.mbapi.Material;
+import com.njdaeger.mbapi.MaterialBridge;
 import com.njdaeger.mbapi.data.BlockType;
-import org.bukkit.Axis;
 import org.bukkit.Location;
-import org.bukkit.block.BlockFace;
 
 /**
  * Can be placed in the world.
@@ -20,7 +19,16 @@ public class Block extends BlockType<Block> {
     }
     
     @Override
-    public void setBlock(Location location) {
-    
+    public void setBlock(Location location, boolean setIfDifferent, boolean applyPhysics) {
+        org.bukkit.block.Block block = location.getBlock();
+        if (!block.getType().equals(getBukkitMaterial())) {
+            if (setIfDifferent) block.setType(getBukkitMaterial());
+            else return;
+        }
+        if (MaterialBridge.isPretechnical()) {
+            block.setData((byte)getLegacyData().getDurability(), applyPhysics);
+            return;
+        }
+        block.setType(getBukkitMaterial());//block has no special properties, we can just set it to its proper type in 1.13
     }
 }

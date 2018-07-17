@@ -3,3 +3,4 @@ version: ${project.version}
 description: A bridge between the legacy Material API and the new Material API
 author: NJDaeger
 main: com.njdaeger.mbapi.MaterialBridge
+api-version: 1.13

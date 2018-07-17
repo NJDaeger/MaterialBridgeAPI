@@ -5,29 +5,37 @@ import com.njdaeger.mbapi.MaterialBridge;
 import com.njdaeger.mbapi.Util;
 import com.njdaeger.mbapi.data.StackedBlockType;
 import com.njdaeger.mbapi.properties.Directional;
-import org.bukkit.DyeColor;
+import com.njdaeger.mbapi.properties.Openable;
+import com.njdaeger.mbapi.properties.Powerable;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.banner.Pattern;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.inventory.meta.BannerMeta;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
-//TODO this entire class. its not entirely possible to rotate a banner with the updated blockdata api
-public class Banner extends StackedBlockType<Banner> implements Directional<Banner> {
+/*
+
+Properties:
+
+- facing        Directional
+- in_wall       SELF
+- open          Openable
+- powered       Powerable
+
+ */
+public class Gate extends StackedBlockType<Gate> implements Directional<Gate>, Powerable<Gate>, Openable<Gate> {
     
     private Set<BlockFace> allowedDirections;
-    private List<Pattern> patterns;
     private BlockFace direction;
-    private DyeColor color;
+    private boolean powered;
+    private boolean inWall;
+    private boolean open;
     
-    public Banner(Material<Banner> material) {
+    public Gate(Material<Gate> material) {
         super(material);
-        this.allowedDirections = Util.allDirectionsExcept(BlockFace.UP, BlockFace.DOWN, BlockFace.SELF);
+        this.allowedDirections = Util.mainDirections();
+        this.direction = BlockFace.NORTH;
     }
     
     @Override
@@ -41,12 +49,11 @@ public class Banner extends StackedBlockType<Banner> implements Directional<Bann
             block.setData((byte)getLegacyData().getDurability(), applyPhysics);
             return;
         }
-        org.bukkit.block.Banner bannerPatterns = (org.bukkit.block.Banner)block.getBlockData();
-        bannerPatterns.setPatterns(this.patterns);
-        org.bukkit.material.Banner banner = (org.bukkit.material.Banner)block;
-        banner.setFacingDirection(direction);
-        ((org.bukkit.material.Banner)block).setFacingDirection(direction);
-        block.setBlockData((BlockData)banner);
+        org.bukkit.block.data.type.Gate gate = (org.bukkit.block.data.type.Gate)block.getBlockData();
+        gate.setInWall(inWall);
+        gate.setPowered(powered);
+        gate.setOpen(open);
+        gate.setFacing(direction);
     }
     
     @Override
@@ -64,24 +71,32 @@ public class Banner extends StackedBlockType<Banner> implements Directional<Bann
         return Collections.unmodifiableSet(allowedDirections);
     }
     
-    public void addPattern(Pattern pattern) {
-        patterns.add(pattern);
+    @Override
+    public void setPowered(boolean powered) {
+        this.powered = powered;
     }
     
-    public void removePattern(int patternIndex) {
-        patterns.remove(patternIndex);
+    @Override
+    public boolean isPowered() {
+        return powered;
     }
     
-    public List<Pattern> getPatterns() {
-        return patterns;
+    @Override
+    public void setOpen(boolean open) {
+        this.open = open;
     }
     
-    public int getPatternAmount() {
-        return patterns.size();
+    @Override
+    public boolean isOpen() {
+        return open;
     }
     
-    public DyeColor getColor() {
-        throw new UnsupportedOperationException("Waiting for full 1.13 release.");
+    public void setInWall(boolean inWall) {
+        this.inWall = inWall;
+    }
+    
+    public boolean isInWall() {
+        return inWall;
     }
     
 }
