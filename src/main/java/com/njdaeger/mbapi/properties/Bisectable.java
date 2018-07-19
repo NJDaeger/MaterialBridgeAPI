@@ -1,16 +1,16 @@
 package com.njdaeger.mbapi.properties;
 
 import com.njdaeger.mbapi.data.MaterialType;
-import org.bukkit.block.data.Bisected;
+import com.njdaeger.mbapi.properties.data.Half;
 
 public interface Bisectable<T extends MaterialType> extends Property<T> {
     
-    void setHalf(Bisected.Half half);
+    void setHalf(Half half);
     
-    Bisected.Half getHalf();
+    Half getHalf();
     
     default boolean isTop() {
-        return getHalf().equals(Bisected.Half.TOP);
+        return getHalf().equals(Half.TOP);
     }
     
 }

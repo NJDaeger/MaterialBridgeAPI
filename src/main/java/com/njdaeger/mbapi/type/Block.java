@@ -2,6 +2,7 @@ package com.njdaeger.mbapi.type;
 
 import com.njdaeger.mbapi.Material;
 import com.njdaeger.mbapi.MaterialBridge;
+import com.njdaeger.mbapi.Util;
 import com.njdaeger.mbapi.data.BlockType;
 import org.bukkit.Location;
 
@@ -11,8 +12,7 @@ import org.bukkit.Location;
  * <p><b>* Cannot be made into an itemstack</p>
  * <p><b>* Has no special properties.
  */
-@SuppressWarnings("unused")
-public class Block extends BlockType<Block> {
+public final class Block extends BlockType<Block> {
     
     public Block(Material<Block> material) {
         super(material);
@@ -22,13 +22,13 @@ public class Block extends BlockType<Block> {
     public void setBlock(Location location, boolean setIfDifferent, boolean applyPhysics) {
         org.bukkit.block.Block block = location.getBlock();
         if (!block.getType().equals(getBukkitMaterial())) {
-            if (setIfDifferent) block.setType(getBukkitMaterial());
+            if (setIfDifferent) block.setType(getBukkitMaterial(), applyPhysics);
             else return;
         }
         if (MaterialBridge.isPretechnical()) {
-            block.setData((byte)getLegacyData().getDurability(), applyPhysics);
+            Util.setData(block, getLegacyData(), applyPhysics);
             return;
         }
-        block.setType(getBukkitMaterial());//block has no special properties, we can just set it to its proper type in 1.13
+        block.setType(getBukkitMaterial(), applyPhysics);//block has no special properties, we can just set it to its proper type in 1.13
     }
 }

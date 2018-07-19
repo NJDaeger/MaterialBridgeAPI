@@ -7,10 +7,13 @@ import com.njdaeger.mbapi.data.StackedBlockType;
 import com.njdaeger.mbapi.properties.Bisectable;
 import com.njdaeger.mbapi.properties.Directional;
 import com.njdaeger.mbapi.properties.Waterloggable;
+import com.njdaeger.mbapi.properties.data.Direction;
+import com.njdaeger.mbapi.properties.data.Half;
+import com.njdaeger.mbapi.properties.data.StairShape;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.data.Bisected.Half;
+import org.bukkit.block.data.Bisected;
 import org.bukkit.block.data.type.Stairs.Shape;
 
 import java.util.Collections;
@@ -27,39 +30,21 @@ Properties:
 - waterlogged   Waterloggable
 
  */
-public class Stairs extends StackedBlockType<Stairs> implements Waterloggable<Stairs>, Directional<Stairs>, Bisectable<Stairs> {
+public abstract class Stairs extends StackedBlockType<Stairs> implements Waterloggable<Stairs>, Directional<Stairs>, Bisectable<Stairs> {
     
-    private Set<BlockFace> allowedDirections;
-    private BlockFace direction;
+    private Set<Direction> allowedDirections;
+    private Direction direction;
     private boolean waterlogged;
-    private Shape shape;
+    private StairShape shape;
     private Half half;
     
     public Stairs(Material<Stairs> material) {
         super(material);
         this.allowedDirections = Util.mainDirections();
-        this.direction = BlockFace.NORTH;
+        this.direction = Direction.NORTH;
         this.waterlogged = false;
-        this.shape = Shape.STRAIGHT;
+        this.shape = StairShape.STRAIGHT;
         this.half = Half.BOTTOM;
-    }
-    
-    @Override
-    public void setBlock(Location location, boolean setIfDifferent, boolean applyPhysics) {
-        Block block = location.getBlock();
-        if (!block.getType().equals(getBukkitMaterial())) {
-            if (setIfDifferent) block.setType(getBukkitMaterial());
-            else return;
-        }
-        if (MaterialBridge.isPretechnical()) {
-            block.setData((byte)getLegacyData().getDurability(), applyPhysics);
-            return;
-        }
-        org.bukkit.block.data.type.Stairs stairs = (org.bukkit.block.data.type.Stairs)block.getBlockData();
-        stairs.setShape(shape);
-        stairs.setFacing(direction);
-        stairs.setHalf(half);
-        stairs.setWaterlogged(waterlogged);
     }
     
     @Override
@@ -73,17 +58,17 @@ public class Stairs extends StackedBlockType<Stairs> implements Waterloggable<St
     }
     
     @Override
-    public void setDirection(BlockFace direction) {
+    public void setDirection(Direction direction) {
         if (isAllowedDirection(direction)) this.direction =  direction;
     }
     
     @Override
-    public BlockFace getDirection() {
+    public Direction getDirection() {
         return direction;
     }
     
     @Override
-    public Set<BlockFace> getAllowedDirections() {
+    public Set<Direction> getAllowedDirections() {
         return Collections.unmodifiableSet(allowedDirections);
     }
     
@@ -101,7 +86,7 @@ public class Stairs extends StackedBlockType<Stairs> implements Waterloggable<St
      * Sets the shape of the stairs
      * @param shape The shape of the stairs
      */
-    public void setShape(Shape shape) {
+    public void setShape(StairShape shape) {
         this.shape = shape;
     }
     
@@ -109,7 +94,7 @@ public class Stairs extends StackedBlockType<Stairs> implements Waterloggable<St
      * Gets the current shape of the stairs
      * @return The shape of the stairs.
      */
-    public Shape getShape() {
+    public StairShape getShape() {
         return shape;
     }
     

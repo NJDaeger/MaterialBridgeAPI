@@ -1,10 +1,7 @@
 package com.njdaeger.mbapi.type.specific;
 
 import com.njdaeger.mbapi.Material;
-import com.njdaeger.mbapi.MaterialBridge;
 import com.njdaeger.mbapi.data.StackedBlockType;
-import org.bukkit.Location;
-import org.bukkit.block.Block;
 
 /*
 
@@ -14,30 +11,15 @@ Properties:
 - Distance          SELF
 
  */
-public class Leaves extends StackedBlockType<Leaves> {
+public abstract class Leaves extends StackedBlockType<Leaves> {
     
     private boolean persistent;
     private int distance;
     
     public Leaves(Material<Leaves> material) {
         super(material);
-    }
-    
-    @Override
-    public void setBlock(Location location, boolean setIfDifferent, boolean applyPhysics) {
-        Block block = location.getBlock();
-        if (!block.getType().equals(getBukkitMaterial())) {
-            if (setIfDifferent) block.setType(getBukkitMaterial());
-            else return;
-        }
-        if (MaterialBridge.isPretechnical()) {
-            block.setData((byte)getLegacyData().getDurability(), applyPhysics);
-            return;
-        }
-        org.bukkit.block.data.type.Leaves leaves = (org.bukkit.block.data.type.Leaves)block.getBlockData();
-        leaves.setDistance(distance);
-        leaves.setPersistent(persistent);
-        block.setBlockData(leaves);
+        this.persistent = false;
+        this.distance = 1;
     }
     
     public void setPersistent(boolean persistent) {
@@ -49,6 +31,8 @@ public class Leaves extends StackedBlockType<Leaves> {
     }
     
     public void setDistance(int distance) {
+        if (distance < 1) distance = 1;
+        if (distance > 7) distance = 7;
         this.distance = distance;
     }
     

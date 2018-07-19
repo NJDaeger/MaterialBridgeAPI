@@ -1,15 +1,12 @@
 package com.njdaeger.mbapi.type.specific;
 
 import com.njdaeger.mbapi.Material;
-import com.njdaeger.mbapi.MaterialBridge;
 import com.njdaeger.mbapi.Util;
 import com.njdaeger.mbapi.data.StackedBlockType;
 import com.njdaeger.mbapi.properties.Directional;
 import com.njdaeger.mbapi.properties.Powerable;
-import org.bukkit.Location;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.data.type.Switch.Face;
+import com.njdaeger.mbapi.properties.data.Direction;
+import com.njdaeger.mbapi.properties.data.Face;
 
 import java.util.Collections;
 import java.util.Set;
@@ -24,34 +21,19 @@ Properties:
 
  */
 
-public class Switch extends StackedBlockType<Switch> implements Powerable<Switch>, Directional<Switch> {
+public abstract class Switch extends StackedBlockType<Switch> implements Powerable<Switch>, Directional<Switch> {
     
-    private Set<BlockFace> allowedDirections;
-    private BlockFace direction;
+    private Set<Direction> allowedDirections;
+    private Direction direction;
     private boolean powered;
     private Face face;
     
     public Switch(Material<Switch> material) {
         super(material);
         this.allowedDirections = Util.mainDirections();
-    }
-    
-    @Override
-    public void setBlock(Location location, boolean setIfDifferent, boolean applyPhysics) {
-        Block block = location.getBlock();
-        if (!block.getType().equals(getBukkitMaterial())) {
-            if (setIfDifferent) block.setType(getBukkitMaterial());
-            else return;
-        }
-        if (MaterialBridge.isPretechnical()) {
-            block.setData((byte)getLegacyData().getDurability(), applyPhysics);
-            return;
-        }
-        org.bukkit.block.data.type.Switch swch = (org.bukkit.block.data.type.Switch)block.getBlockData();
-        swch.setFace(face);
-        swch.setFacing(direction);
-        swch.setPowered(powered);
-        block.setBlockData(swch);
+        this.direction = Direction.NORTH;
+        this.powered = false;
+        this.face = Face.WALL;
     }
     
     @Override
@@ -65,17 +47,17 @@ public class Switch extends StackedBlockType<Switch> implements Powerable<Switch
     }
     
     @Override
-    public void setDirection(BlockFace direction) {
+    public void setDirection(Direction direction) {
         if (isAllowedDirection(direction)) this.direction = direction;
     }
     
     @Override
-    public BlockFace getDirection() {
+    public Direction getDirection() {
         return direction;
     }
     
     @Override
-    public Set<BlockFace> getAllowedDirections() {
+    public Set<Direction> getAllowedDirections() {
         return Collections.unmodifiableSet(allowedDirections);
     }
     

@@ -1,21 +1,31 @@
 package com.njdaeger.mbapi;
 
+import com.njdaeger.mbapi.data.BlockType;
 import com.njdaeger.mbapi.data.LegacyData;
 import com.njdaeger.mbapi.data.MaterialType;
 import com.njdaeger.mbapi.type.Block;
 import com.njdaeger.mbapi.type.StackedBlock;
+import com.njdaeger.mbapi.type.specific.Banner;
+import com.njdaeger.mbapi.type.specific.Bed;
 import com.njdaeger.mbapi.type.specific.Directional;
+import com.njdaeger.mbapi.type.specific.Door;
 import com.njdaeger.mbapi.type.specific.Fence;
 import com.njdaeger.mbapi.type.specific.Gate;
 import com.njdaeger.mbapi.type.specific.Leaves;
 import com.njdaeger.mbapi.type.specific.Pillar;
+import com.njdaeger.mbapi.type.specific.PressurePlate;
+import com.njdaeger.mbapi.type.specific.RedstoneRail;
+import com.njdaeger.mbapi.type.specific.Sapling;
+import com.njdaeger.mbapi.type.specific.Slab;
 import com.njdaeger.mbapi.type.specific.Stairs;
 import com.njdaeger.mbapi.type.specific.Switch;
 import com.njdaeger.mbapi.type.Item;
+import com.njdaeger.mbapi.type.specific.Trapdoor;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,64 +36,65 @@ public final class Material<T extends MaterialType> {
     private static final HashMap<String, Material<?>> MATERIALS = new HashMap<>();
     private static final Collection<Material<?>> MATERIAL_PRE_MAP = new ArrayList<>();
     
+    //A's are done.
     public static final Material<Block> AIR = new Material<>("AIR", "air", new LegacyData(0, 0));
     public static final Material<Item> ACACIA_BOAT = new Material<>(Item.class, "BOAT_ACACIA","ACACIA_BOAT", "acacia_boat", 1, new LegacyData(447, 0));
     public static final Material<Switch> ACACIA_BUTTON = new Material<>(Switch.class, "ACACIA_BUTTON", "acacia_button");
-    public static final Material<Block> ACACIA_DOOR = new Material<>("ACACIA_DOOR", "acacia_door", new LegacyData(196, 0));                                               //TODO
+    public static final Material<Door> ACACIA_DOOR = new Material<>(Door.class, "ACACIA_DOOR", "acacia_door", new LegacyData(196, 0));
     public static final Material<Item> ACACIA_DOOR_ITEM = new Material<>("ACACIA_DOOR_ITEM", "ACACIA_DOOR", "acacia_door", new LegacyData(430, 0));
     public static final Material<Fence> ACACIA_FENCE = new Material<>("ACACIA_FENCE", "acacia_fence", new LegacyData(192, 0));
     public static final Material<Gate> ACACIA_FENCE_GATE = new Material<>(Gate.class, "ACACIA_FENCE_GATE", "acacia_fence_gate", new LegacyData(187, 0));
     public static final Material<Stairs> ACACIA_STAIRS = new Material<>(Stairs.class, "ACACIA_STAIRS", "acacia_stairs", new LegacyData(163, 0));
     public static final Material<Leaves> ACACIA_LEAVES = new Material<>(Leaves.class, "LEAVES_2", "ACACIA_LEAVES", "acacia_leaves", "leaves2", new LegacyData(161, 0));
     public static final Material<Pillar> ACACIA_LOG = new Material<>(Pillar.class, "LOG_2", "ACACIA_LOG", "log2", "acacia_log", new LegacyData(162, 0));
-    public static final Material<StackedBlock> ACACIA_PLANKS = new Material<>(StackedBlock.class, "WOOD", "ACACIA_PLANKS", "acacia_planks", "planks", new LegacyData(5, 4));
-    public static final Material<Block> ACACIA_PRESSURE_PLATE = new Material<>( "ACACIA_PRESSURE_PLATE", "acacia_pressure_plate");                            //TODO
-    public static final Material<Block> ACACIA_SAPLING = new Material<>("SAPLING", "ACACIA_SAPLING", "sapling", "acacia_sapling", new LegacyData(6, 4));     //TODO
-    public static final Material<Block> ACACIA_SLAB = new Material<>("WOOD_STEP", "ACACIA_SLAB", "wooden_slab", "acacia_slab", new LegacyData(126, 4));      //TODO
-    public static final Material<Block> ACACIA_TRAPDOOR = new Material<>("ACACIA_TRAPDOOR", "acacia_trapdoor");                                              //TODO
+    public static final Material<StackedBlock> ACACIA_PLANKS = new Material<>(StackedBlock.class, "WOOD", "ACACIA_PLANKS", "planks", "acacia_planks", new LegacyData(5, 4));
+    public static final Material<PressurePlate> ACACIA_PRESSURE_PLATE = new Material<>(PressurePlate.class, "ACACIA_PRESSURE_PLATE", "acacia_pressure_plate");
+    public static final Material<Sapling> ACACIA_SAPLING = new Material<>(Sapling.class, "SAPLING", "ACACIA_SAPLING", "sapling", "acacia_sapling", new LegacyData(6, 4));
+    public static final Material<Slab> ACACIA_SLAB = new Material<>(Slab.class, "WOOD_STEP", "ACACIA_SLAB", "wooden_slab", "acacia_slab", new LegacyData(126, 4));
+    public static final Material<Trapdoor> ACACIA_TRAPDOOR = new Material<>(Trapdoor.class, "ACACIA_TRAPDOOR", "acacia_trapdoor");
     public static final Material<Pillar> ACACIA_BARK = new Material<>(Pillar.class, "LOG_2", "ACACIA_WOOD", "log_2", "acacia_wood", new LegacyData(162, 12));
-    public static final Material<Block> ACTIVATOR_RAIL = new Material<>(Block.class, "ACTIVATOR_RAIL", "activator_rail", new LegacyData(157, 0));                         //TODO
+    public static final Material<RedstoneRail> ACTIVATOR_RAIL = new Material<>(RedstoneRail.class, "ACTIVATOR_RAIL", "activator_rail", new LegacyData(157, 0));
     public static final Material<StackedBlock> ALLIUM = new Material<>(StackedBlock.class, "RED_ROSE", "ALLIUM", "red_flower", "allium", new LegacyData(38, 2));
     public static final Material<StackedBlock> ANDESITE = new Material<>(StackedBlock.class, "STONE", "ANDESITE", "stone", "andesite", new LegacyData(1, 5));
     public static final Material<Directional> ANVIL = new Material<>(Directional.class, "ANVIL", "ANVIL", "anvil", new LegacyData(145, 0));
     public static final Material<Item> APPLE = new Material<>(Item.class, "APPLE", "apple", new LegacyData(260, 0));
-    public static final Material<Item> ARMOR_STAND = new Material<>(Item.class, "ARMOR_STAND", "armor_stand", 16, new LegacyData(460, 0)); //FIXME maxstack 16
+    public static final Material<Item> ARMOR_STAND = new Material<>(Item.class, "ARMOR_STAND", "armor_stand", 16, new LegacyData(460, 0));
     public static final Material<Item> ARROW = new Material<>(Item.class, "ARROW", "arrow", new LegacyData(262, 0));
     public static final Material<StackedBlock> AZURE_BLUET = new Material<>(StackedBlock.class, "RED_ROSE", "AZURE_BLUET", "red_flower", "azure_bluet", new LegacyData(38, 3));
-    public static final Material<Block> ATTACHED_PUMPKIN_STEM = new Material<>(Block.class, "PUMPKIN_STEM", "ATTACHED_PUMPKIN_STEM", "pumpkin_stem", new LegacyData(104, 0));
-    public static final Material<Block> ATTACHED_MELON_STEM = new Material<>(Block.class, "MELON_STEM", "ATTACHED_MELON_STEM", "melon_stem", new LegacyData(105, 0));
+    public static final Material<Block> ATTACHED_PUMPKIN_STEM = new Material<>(Block.class, "PUMPKIN_STEM", "ATTACHED_PUMPKIN_STEM", "pumpkin_stem", new LegacyData(104, 0));//todo
+    public static final Material<Block> ATTACHED_MELON_STEM = new Material<>(Block.class, "MELON_STEM", "ATTACHED_MELON_STEM", "melon_stem", new LegacyData(105, 0));//todo
     
     
     public static final Material<Item> BAKED_POTATO = new Material(Item.class, "BAKED_POTATO", "baked_potato", new LegacyData(393, 0));
     public static final Material<StackedBlock> BARRIER = new Material(StackedBlock.class, "BARRIER", "barrier", new LegacyData(166, 0));
-    public static final Material BAT_SPAWN_EGG = new Material();
-    public static final Material BEACON = new Material();
-    public static final Material BEDROCK = new Material();
-    public static final Material BEEF = new Material();
-    public static final Material BEETROOT = new Material();//item
-    public static final Material BEETROOTS = new Material();//block
-    public static final Material BEETROOT_SEEDS = new Material();
-    public static final Material BEETROOT_SOUP = new Material(); //FIXME maxstack 1
-    public static final Material BIRCH_BOAT = new Material(); //FIXME maxstack 1
-    public static final Material BIRCH_BUTTON = new Material();
-    public static final Material BIRCH_DOOR = new Material();
-    public static final Material BIRCH_FENCE = new Material();
-    public static final Material BIRCH_FENCE_GATE = new Material();
-    public static final Material BIRCH_LEAVES = new Material();
-    public static final Material BIRCH_LOG = new Material();
-    public static final Material BIRCH_PLANKS = new Material();
-    public static final Material BIRCH_PRESSURE_PLATE = new Material();
-    public static final Material BIRCH_SAPLING = new Material();
-    public static final Material BIRCH_SLAB = new Material();
-    public static final Material BIRCH_STAIRS = new Material();
-    public static final Material BIRCH_TRAPDOOR = new Material();
-    public static final Material BIRCH_BARK = new Material();
-    public static final Material BLACK_BANNER = new Material(); //FIXME maxstack 16
-    public static final Material BLACK_BED = new Material(); //FIXME maxstack 1
-    public static final Material BLACK_CARPET = new Material();
-    public static final Material BLACK_CONCRETE = new Material();
-    public static final Material BLACK_CONCRETE_POWDER = new Material();
-    public static final Material BLACK_GLAZED_TERRACOTTA = new Material();
+    public static final Material<Item> BAT_SPAWN_EGG = new Material(Item.class, "MONSTER_EGG", "BAT_SPAWN_EGG", "spawn_egg", "bat_spawn_egg", new LegacyData(383, 65));
+    public static final Material<StackedBlock> BEACON = new Material(StackedBlock.class, "BEACON", "beacon", new LegacyData(138, 0));
+    public static final Material<StackedBlock> BEDROCK = new Material(StackedBlock.class, "BEDROCK", "bedrock", new LegacyData(7, 0));
+    public static final Material<Item> BEEF = new Material(Item.class, "RAW_BEEF", "BEEF", "beef", new LegacyData(363, 0));
+    public static final Material<Item> BEETROOT = new Material(Item.class, "BEETROOT", "beetroot", new LegacyData(434, 0));//item
+    public static final Material<Block> BEETROOT_BLOCK = new Material("BEETROOT_BLOCK", "BEETROOTS", "beetroots", new LegacyData(207, 0));//block//TODO this is probably ageable
+    public static final Material<Item> BEETROOT_SEEDS = new Material(Item.class, "BEETROOT_SEEDS", "beetroot_seeds", new LegacyData(435, 0));
+    public static final Material<Item> BEETROOT_SOUP = new Material(Item.class, "BEETROOT_SOUP", "beetroot_soup", 1, new LegacyData(436, 0));
+    public static final Material<Item> BIRCH_BOAT = new Material(Item.class, "BOAT_BIRCH", "BIRCH_BOAT", "birch_boat", 1, new LegacyData(445, 0));
+    public static final Material<Switch> BIRCH_BUTTON = new Material(Switch.class, "BIRCH_BUTTON", "birch_button");
+    public static final Material<Door> BIRCH_DOOR = new Material(Door.class, "BIRCH_DOOR", "birch_door", new LegacyData(194, 0));
+    public static final Material<Fence> BIRCH_FENCE = new Material(Fence.class, "BIRCH_FENCE", "birch_fence", new LegacyData(189, 0));
+    public static final Material<Gate> BIRCH_FENCE_GATE = new Material(Gate.class, "BIRCH_FENCE_GATE", "birch_fence_gate", new LegacyData(184, 0));
+    public static final Material<Leaves> BIRCH_LEAVES = new Material(Leaves.class, "LEAVES", "BIRCH_LEAVES", "leaves", "birch_leaves", new LegacyData(18, 2));
+    public static final Material<Pillar> BIRCH_LOG = new Material(Pillar.class, "LOG", "BIRCH_LOG", "log", "birch_log", new LegacyData(17, 2));
+    public static final Material<StackedBlock> BIRCH_PLANKS = new Material(StackedBlock.class, "WOOD", "BIRCH_PLANKS", "planks", "birch_planks", new LegacyData(5, 2));
+    public static final Material<PressurePlate> BIRCH_PRESSURE_PLATE = new Material(PressurePlate.class, "BIRCH_PRESSURE_PLATE", "birch_pressure_plate");
+    public static final Material<Sapling> BIRCH_SAPLING = new Material(Sapling.class, "SAPLING", "BIRCH_SAPLING", "sapling", "birch_sapling", new LegacyData(6, 2));
+    public static final Material<Slab> BIRCH_SLAB = new Material(Slab.class, "WOOD_STEP", "BIRCH_SLAB", "wooden_slab", "birch_slab", new LegacyData(126, 2));
+    public static final Material<Stairs> BIRCH_STAIRS = new Material(Stairs.class, "BIRCH_WOOD_STAIRS", "BIRCH_STAIRS", "birch_stairs", new LegacyData(135, 0));
+    public static final Material<Trapdoor> BIRCH_TRAPDOOR = new Material(Trapdoor.class, "BIRCH_TRAPDOOR", "birch_trapdoor");
+    public static final Material<Pillar> BIRCH_BARK = new Material(Pillar.class, "LOG", "BIRCH_WOOD", "log", "birch_wood", new LegacyData(5, 14));
+    public static final Material<Banner> BLACK_BANNER = new Material(Banner.class, "STANDING_BANNER", "BLACK_BANNER", "banner", "black_banner", 16, new LegacyData(425, 0));
+    public static final Material<Bed> BLACK_BED = new Material(Bed.class, "BED_BLOCK", "BLACK_BED", "bed", "black_bed", 1, new LegacyData(355, 15));
+    public static final Material<StackedBlock> BLACK_CARPET = new Material(StackedBlock.class, "CARPET", "BLACK_CARPET", "carpet", "black_carpet", new LegacyData(171, 15));
+    /*public static final Material<StackedBlock> BLACK_CONCRETE = new Material();
+    public static final Material<StackedBlock> BLACK_CONCRETE_POWDER = new Material();
+    public static final Material BLACK_GLAZED_TERRACOTTA = new Material();//TODO
     public static final Material BLACK_SHULKER_BOX = new Material(); //FIXME maxstack 1
     public static final Material BLACK_STAINED_GLASS = new Material();
     public static final Material BLACK_STAINED_GLASS_PANE = new Material();
@@ -141,7 +152,7 @@ public final class Material<T extends MaterialType> {
     public static final Material BUBBLE_CORAL = new Material(); //item
     public static final Material BUBBLE_CORAL_BLOCK = new Material();
     public static final Material BUBBLE_CORAL_FAN = new Material();
-    public static final Material BUCKET = new Material(); //FIXME maxstack 1
+    public static final Material BUCKET = new Material(); //FIXME maxstack 1*/
     
     
     static {
@@ -335,9 +346,19 @@ public final class Material<T extends MaterialType> {
      */
     public final T get() {
         try {
-            return type.getConstructor(Material.class).newInstance(this);
+            if (type.isAssignableFrom(StackedBlock.class) || type.isAssignableFrom(Item.class) || type.isAssignableFrom(Block.class)) {
+                return type.getConstructor(Material.class).newInstance(this);
+            }
+    
+            Class<T> cls;
+            
+            if (MaterialBridge.isPretechnical()) {
+                cls = (Class<T>)Class.forName("com.njdaeger.mbapi.type.impl.pretechnical." + type.getSimpleName());
+            } else cls = (Class<T>)Class.forName("com.njdaeger.mbapi.type.impl.technical." + type.getSimpleName());
+            
+            return cls.getConstructor(Material.class).newInstance(this);
         }
-        catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+        catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         throw new TypeNotCreatedException(constantName);

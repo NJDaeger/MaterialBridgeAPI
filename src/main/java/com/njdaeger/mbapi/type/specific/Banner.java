@@ -1,66 +1,44 @@
 package com.njdaeger.mbapi.type.specific;
 
 import com.njdaeger.mbapi.Material;
-import com.njdaeger.mbapi.MaterialBridge;
 import com.njdaeger.mbapi.Util;
 import com.njdaeger.mbapi.data.StackedBlockType;
 import com.njdaeger.mbapi.properties.Directional;
+import com.njdaeger.mbapi.properties.data.Direction;
 import org.bukkit.DyeColor;
-import org.bukkit.Location;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.block.banner.Pattern;
-import org.bukkit.block.data.BlockData;
-import org.bukkit.inventory.meta.BannerMeta;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-//TODO this entire class. its not entirely possible to rotate a banner with the updated blockdata api
-public class Banner extends StackedBlockType<Banner> implements Directional<Banner> {
+public abstract class Banner extends StackedBlockType<Banner> implements Directional<Banner> {
     
-    private Set<BlockFace> allowedDirections;
+    private Set<Direction> allowedDirections;
     private List<Pattern> patterns;
-    private BlockFace direction;
-    private DyeColor color;
+    private Direction direction;
+    private DyeColor color;//TODO dyecolor somehow
     
     public Banner(Material<Banner> material) {
         super(material);
-        this.allowedDirections = Util.allDirectionsExcept(BlockFace.UP, BlockFace.DOWN, BlockFace.SELF);
+        this.allowedDirections = Util.allDirectionsExcept(Direction.UP, Direction.DOWN, Direction.SELF);
+        this.patterns = new ArrayList<>();
+        this.color = DyeColor.WHITE;
     }
     
     @Override
-    public void setBlock(Location location, boolean setIfDifferent, boolean applyPhysics) {
-        Block block = location.getBlock();
-        if (!block.getType().equals(getBukkitMaterial())) {
-            if (setIfDifferent) block.setType(getBukkitMaterial());
-            else return;
-        }
-        if (MaterialBridge.isPretechnical()) {
-            block.setData((byte)getLegacyData().getDurability(), applyPhysics);
-            return;
-        }
-        org.bukkit.block.Banner bannerPatterns = (org.bukkit.block.Banner)block.getBlockData();
-        bannerPatterns.setPatterns(this.patterns);
-        org.bukkit.material.Banner banner = (org.bukkit.material.Banner)block;
-        banner.setFacingDirection(direction);
-        ((org.bukkit.material.Banner)block).setFacingDirection(direction);
-        block.setBlockData((BlockData)banner);
-    }
-    
-    @Override
-    public void setDirection(BlockFace direction) {
+    public void setDirection(Direction direction) {
         if (isAllowedDirection(direction)) this.direction = direction;
     }
     
     @Override
-    public BlockFace getDirection() {
+    public Direction getDirection() {
         return direction;
     }
     
     @Override
-    public Set<BlockFace> getAllowedDirections() {
+    public Set<Direction> getAllowedDirections() {
         return Collections.unmodifiableSet(allowedDirections);
     }
     

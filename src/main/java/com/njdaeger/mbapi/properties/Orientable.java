@@ -1,7 +1,7 @@
 package com.njdaeger.mbapi.properties;
 
 import com.njdaeger.mbapi.data.MaterialType;
-import org.bukkit.Axis;
+import com.njdaeger.mbapi.properties.data.Axis;
 
 public interface Orientable<T extends MaterialType> extends Property<T> {
     

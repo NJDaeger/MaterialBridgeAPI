@@ -1,21 +1,22 @@
 package com.njdaeger.mbapi.properties;
 
 import com.njdaeger.mbapi.data.MaterialType;
+import com.njdaeger.mbapi.properties.data.Direction;
 import org.bukkit.block.BlockFace;
 
 import java.util.Set;
 
 public interface MultiDirectional<T extends MaterialType> extends Property<T> {
     
-    Set<BlockFace> getDirections();
+    Set<Direction> getDirections();
     
-    Set<BlockFace> getAllowedDirections();
+    Set<Direction> getAllowedDirections();
     
-    void addDirection(BlockFace direction);
+    void addDirection(Direction direction);
     
-    void removeDirection(BlockFace direction);
+    void removeDirection(Direction direction);
     
-    default boolean isAllowedDirection(BlockFace direction) {
+    default boolean isAllowedDirection(Direction direction) {
         return getAllowedDirections().contains(direction);
     }
     
@@ -24,7 +25,7 @@ public interface MultiDirectional<T extends MaterialType> extends Property<T> {
         addDirection(getAllowedDirections().stream().findFirst().get());
     }
     
-    default boolean hasDirection(BlockFace check) {
+    default boolean hasDirection(Direction check) {
         return getDirections().contains(check);
     }
     

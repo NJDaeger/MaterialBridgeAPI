@@ -1,7 +1,6 @@
 package com.njdaeger.mbapi.data;
 
 import com.njdaeger.mbapi.Material;
-import static com.njdaeger.mbapi.MaterialBridge.isPretechnical;
 
 public abstract class MaterialType<T extends MaterialType> {
     
