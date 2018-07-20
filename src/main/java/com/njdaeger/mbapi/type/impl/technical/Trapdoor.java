@@ -19,6 +19,8 @@ public final class Trapdoor extends com.njdaeger.mbapi.type.specific.Trapdoor {
             Block block = location.getBlock();
             TrapDoor trapDoor = (TrapDoor)block.getBlockData();
             trapDoor.setFacing(BlockFace.valueOf(getDirection().name()));
+            System.out.println(getHalf().name());
+            System.out.println(Bisected.Half.valueOf(getHalf().name()));
             trapDoor.setHalf(Bisected.Half.valueOf(getHalf().name()));//todo fix this
             trapDoor.setWaterlogged(isWaterlogged());
             trapDoor.setPowered(isPowered());
