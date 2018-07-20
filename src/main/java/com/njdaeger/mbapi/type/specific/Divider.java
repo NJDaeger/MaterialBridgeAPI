@@ -12,13 +12,13 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class Fence extends StackedBlockType<Fence> implements MultiDirectional<Fence>, Waterloggable<Fence> {
+public abstract class Divider extends StackedBlockType<Divider> implements MultiDirectional<Divider>, Waterloggable<Divider> {
     
     private Set<Direction> allowedDirections;
     private Set<Direction> directions;
     private boolean waterlogged;
     
-    public Fence(Material<Fence> material) {
+    public Divider(Material<Divider> material) {
         super(material);
         this.allowedDirections = Util.mainDirections();
         allowedDirections.add(Direction.SELF);

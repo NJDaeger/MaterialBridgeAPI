@@ -22,7 +22,7 @@ public abstract class Banner extends StackedBlockType<Banner> implements Directi
     
     public Banner(Material<Banner> material) {
         super(material);
-        this.allowedDirections = Util.allDirectionsExcept(Direction.UP, Direction.DOWN, Direction.SELF);
+        this.allowedDirections = isWallBanner() ? Util.mainDirections() : Util.allDirectionsExcept(Direction.UP, Direction.DOWN, Direction.SELF);
         this.patterns = new ArrayList<>();
         this.color = DyeColor.WHITE;
     }
@@ -56,6 +56,15 @@ public abstract class Banner extends StackedBlockType<Banner> implements Directi
     
     public int getPatternAmount() {
         return patterns.size();
+    }
+    
+    public boolean isWallBanner() {
+        if (getMaterial().equals(Material.BLACK_WALL_BANNER) ||
+            getMaterial().equals(Material.BLUE_WALL_BANNER) ||
+            getMaterial().equals(Material.BROWN_WALL_BANNER)) {
+            return true;
+        }
+        else return false;
     }
     
     public DyeColor getColor() {

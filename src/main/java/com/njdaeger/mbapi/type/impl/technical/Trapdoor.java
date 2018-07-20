@@ -7,7 +7,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Bisected;
 import org.bukkit.block.data.type.TrapDoor;
 
-public class Trapdoor extends com.njdaeger.mbapi.type.specific.Trapdoor {
+public final class Trapdoor extends com.njdaeger.mbapi.type.specific.Trapdoor {
     
     public Trapdoor(Material<com.njdaeger.mbapi.type.specific.Trapdoor> material) {
         super(material);
@@ -19,7 +19,7 @@ public class Trapdoor extends com.njdaeger.mbapi.type.specific.Trapdoor {
             Block block = location.getBlock();
             TrapDoor trapDoor = (TrapDoor)block.getBlockData();
             trapDoor.setFacing(BlockFace.valueOf(getDirection().name()));
-            trapDoor.setHalf(Bisected.Half.valueOf(getHalf().name()));
+            trapDoor.setHalf(Bisected.Half.valueOf(getHalf().name()));//todo fix this
             trapDoor.setWaterlogged(isWaterlogged());
             trapDoor.setPowered(isPowered());
             trapDoor.setOpen(isOpen());

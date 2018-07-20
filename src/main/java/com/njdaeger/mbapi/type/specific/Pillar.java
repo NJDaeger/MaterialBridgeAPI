@@ -16,7 +16,7 @@ public abstract class Pillar extends StackedBlockType<Pillar> implements Orienta
     
     public Pillar(Material<Pillar> material) {
         super(material);
-        this.axis = Axis.X;
+        this.axis = Axis.Y;
     }
     
     @Override

@@ -6,9 +6,9 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
-public final class Fence extends com.njdaeger.mbapi.type.specific.Fence {
+public final class Divider extends com.njdaeger.mbapi.type.specific.Divider {
     
-    public Fence(Material<com.njdaeger.mbapi.type.specific.Fence> material) {
+    public Divider(Material<com.njdaeger.mbapi.type.specific.Divider> material) {
         super(material);
     }
     
