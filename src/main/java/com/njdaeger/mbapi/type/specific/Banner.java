@@ -24,6 +24,7 @@ public abstract class Banner extends StackedBlockType<Banner> implements Directi
         super(material);
         this.allowedDirections = isWallBanner() ? Util.mainDirections() : Util.allDirectionsExcept(Direction.UP, Direction.DOWN, Direction.SELF);
         this.patterns = new ArrayList<>();
+        this.direction = Direction.NORTH;
         this.color = DyeColor.WHITE;
     }
     
