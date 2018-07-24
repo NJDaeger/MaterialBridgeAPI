@@ -4,29 +4,33 @@ import com.njdaeger.mbapi.Material;
 import com.njdaeger.mbapi.Util;
 import com.njdaeger.mbapi.data.StackedBlockType;
 import com.njdaeger.mbapi.properties.Directional;
-import com.njdaeger.mbapi.properties.Waterloggable;
+import com.njdaeger.mbapi.properties.Powerable;
+import com.njdaeger.mbapi.properties.data.ComparatorMode;
 import com.njdaeger.mbapi.properties.data.Direction;
+import org.bukkit.Location;
 
 import java.util.Collections;
 import java.util.Set;
 
 //TODO implement
-public abstract class WallFan extends StackedBlockType<WallFan> implements Waterloggable<WallFan>, Directional<WallFan> {
+public abstract class Comparator extends StackedBlockType<Comparator> implements Directional<Comparator>, Powerable<Comparator> {
     
     private Set<Direction> allowedDirections;
+    private ComparatorMode mode;
     private Direction direction;
-    private boolean waterlogged;
+    private boolean powered;
     
-    public WallFan(Material<WallFan> material) {
+    public Comparator(Material<Comparator> material) {
         super(material);
         this.allowedDirections = Util.mainDirections();
+        this.mode = ComparatorMode.COMPARE;
         this.direction = Direction.NORTH;
-        this.waterlogged = false;
+        this.powered = false;
     }
     
     @Override
     public void setDirection(Direction direction) {
-        this.direction = direction;
+        if (isAllowedDirection(direction)) this.direction = direction;
     }
     
     @Override
@@ -40,12 +44,21 @@ public abstract class WallFan extends StackedBlockType<WallFan> implements Water
     }
     
     @Override
-    public void setWaterlogged(boolean waterlogged) {
-        this.waterlogged = waterlogged;
+    public void setPowered(boolean powered) {
+        this.powered = powered;
     }
     
     @Override
-    public boolean isWaterlogged() {
-        return waterlogged;
+    public boolean isPowered() {
+        return powered;
     }
+    
+    public void setMode(ComparatorMode mode) {
+        this.mode = mode;
+    }
+    
+    public ComparatorMode getMode() {
+        return mode;
+    }
+    
 }

@@ -13,13 +13,13 @@ public interface Stackable<T extends MaterialType> extends Property<T> {
     default ItemStack toItemStack(int size) {
         if (size < 0) size = 1;
         if (size > getMaterial().getMaxStackSize()) size = getMaterial().getMaxStackSize();
-        if (getMaterial().getBukkitMaterial() == null) return null; //This should only be null when the material is from a TECHNICAL+ version and the current version is PRETECHNICAL
+        if (getMaterial().asBukkit() == null) return null; //This should only be null when the material is from a TECHNICAL+ version and the current version is PRETECHNICAL
         if (MaterialBridge.isPretechnical()) {
-            ItemStack stack = new ItemStack(getMaterial().getBukkitMaterial(), size);
+            ItemStack stack = new ItemStack(getMaterial().asBukkit(), size);
             stack.setDurability(getMaterial().getLegacyData().getDurability());
             return stack;
         }
-        else return new ItemStack(getMaterial().getBukkitMaterial(), size);
+        else return new ItemStack(getMaterial().asBukkit(), size);
     }
     
 }

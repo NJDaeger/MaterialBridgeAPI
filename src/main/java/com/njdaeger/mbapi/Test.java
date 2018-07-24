@@ -25,7 +25,7 @@ public class Test extends BukkitCommand {
         Player player = (Player)sender;
         Set<Material> transparent = new HashSet<>();
         transparent.add(Material.AIR);
-        Location location = player.getTargetBlock(transparent.stream().map(Material::getBukkitMaterial).collect(Collectors.toSet()), 30).getLocation();
+        Location location = player.getTargetBlock(transparent.stream().map(Material::asBukkit).collect(Collectors.toSet()), 30).getLocation();
         ((BlockType)Material.valueOf(args[0]).get()).setBlock(location, true, false);
         /*Material.BLACK_CARPET.get().setBlock(location, true, false);
         Material.ACACIA_LEAVES.get().setBlock(location.add(0, 2, 0), true, false);

@@ -51,6 +51,6 @@ public abstract class MaterialType<T extends MaterialType> {
     }
     
     public org.bukkit.Material getBukkitMaterial() {
-        return material.getBukkitMaterial();
+        return material.asBukkit();
     }
 }

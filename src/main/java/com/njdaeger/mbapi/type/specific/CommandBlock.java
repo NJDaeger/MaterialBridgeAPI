@@ -4,29 +4,31 @@ import com.njdaeger.mbapi.Material;
 import com.njdaeger.mbapi.Util;
 import com.njdaeger.mbapi.data.StackedBlockType;
 import com.njdaeger.mbapi.properties.Directional;
-import com.njdaeger.mbapi.properties.Waterloggable;
 import com.njdaeger.mbapi.properties.data.Direction;
 
 import java.util.Collections;
 import java.util.Set;
 
 //TODO implement
-public abstract class WallFan extends StackedBlockType<WallFan> implements Waterloggable<WallFan>, Directional<WallFan> {
+public abstract class CommandBlock extends StackedBlockType<CommandBlock> implements Directional<CommandBlock> {
     
     private Set<Direction> allowedDirections;
     private Direction direction;
-    private boolean waterlogged;
+    private boolean conditional;
+    private String command;
     
-    public WallFan(Material<WallFan> material) {
+    public CommandBlock(Material<CommandBlock> material) {
         super(material);
         this.allowedDirections = Util.mainDirections();
-        this.direction = Direction.NORTH;
-        this.waterlogged = false;
+        allowedDirections.add(Direction.UP);
+        allowedDirections.add(Direction.DOWN);
+        this.direction = Direction.UP;
+        this.conditional = false;
     }
     
     @Override
     public void setDirection(Direction direction) {
-        this.direction = direction;
+        if (isAllowedDirection(direction)) this.direction = direction;
     }
     
     @Override
@@ -39,13 +41,19 @@ public abstract class WallFan extends StackedBlockType<WallFan> implements Water
         return Collections.unmodifiableSet(allowedDirections);
     }
     
-    @Override
-    public void setWaterlogged(boolean waterlogged) {
-        this.waterlogged = waterlogged;
+    public boolean isConditional() {
+        return conditional;
     }
     
-    @Override
-    public boolean isWaterlogged() {
-        return waterlogged;
+    public void setConditional(boolean conditional) {
+        this.conditional = conditional;
+    }
+    
+    public String getCommand() {
+        return command;
+    }
+    
+    public void setCommand(String command) {
+        this.command = command;
     }
 }

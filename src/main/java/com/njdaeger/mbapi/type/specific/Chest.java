@@ -5,28 +5,31 @@ import com.njdaeger.mbapi.Util;
 import com.njdaeger.mbapi.data.StackedBlockType;
 import com.njdaeger.mbapi.properties.Directional;
 import com.njdaeger.mbapi.properties.Waterloggable;
+import com.njdaeger.mbapi.properties.data.ChestType;
 import com.njdaeger.mbapi.properties.data.Direction;
 
 import java.util.Collections;
 import java.util.Set;
 
 //TODO implement
-public abstract class WallFan extends StackedBlockType<WallFan> implements Waterloggable<WallFan>, Directional<WallFan> {
+public abstract class Chest extends StackedBlockType<Chest> implements Directional<Chest>, Waterloggable<Chest> {
     
     private Set<Direction> allowedDirections;
     private Direction direction;
     private boolean waterlogged;
+    private ChestType chestType;
     
-    public WallFan(Material<WallFan> material) {
+    public Chest(Material<Chest> material) {
         super(material);
         this.allowedDirections = Util.mainDirections();
+        this.chestType = ChestType.SINGLE;
         this.direction = Direction.NORTH;
         this.waterlogged = false;
     }
     
     @Override
     public void setDirection(Direction direction) {
-        this.direction = direction;
+        if (isAllowedDirection(direction)) this.direction = direction;
     }
     
     @Override
@@ -48,4 +51,13 @@ public abstract class WallFan extends StackedBlockType<WallFan> implements Water
     public boolean isWaterlogged() {
         return waterlogged;
     }
+    
+    public ChestType getChestType() {
+        return chestType;
+    }
+    
+    public void setChestType(ChestType chestType) {
+        this.chestType = chestType;
+    }
+    
 }

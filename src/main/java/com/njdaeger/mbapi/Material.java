@@ -5,9 +5,15 @@ import com.njdaeger.mbapi.data.MaterialType;
 import com.njdaeger.mbapi.type.Block;
 import com.njdaeger.mbapi.type.Item;
 import com.njdaeger.mbapi.type.StackedBlock;
+import com.njdaeger.mbapi.type.specific.Ageable;
+import com.njdaeger.mbapi.type.specific.AgeableBlock;
 import com.njdaeger.mbapi.type.specific.Banner;
 import com.njdaeger.mbapi.type.specific.Bed;
 import com.njdaeger.mbapi.type.specific.BubbleColumn;
+import com.njdaeger.mbapi.type.specific.Cauldron;
+import com.njdaeger.mbapi.type.specific.Chest;
+import com.njdaeger.mbapi.type.specific.CommandBlock;
+import com.njdaeger.mbapi.type.specific.Comparator;
 import com.njdaeger.mbapi.type.specific.Directional;
 import com.njdaeger.mbapi.type.specific.Divider;
 import com.njdaeger.mbapi.type.specific.Door;
@@ -155,79 +161,118 @@ public final class Material<T extends MaterialType> {
     public static final Material<StackedBlock> BUBBLE_CORAL_FAN = new Material<>(StackedBlock.class, "BUBBLE_CORAL_FAN", "bubble_coral_fan");
     public static final Material<Item> BUCKET = new Material<>(Item.class, "BUCKET", "bucket", 16, new LegacyData(325, 0));
     
+    /*
+    Name:                       Status:     Tech|PreTech
+    TODO: Cauldron              started       X | X
+    TODO: Fluid                 started         |
+    TODO: Ageable               started         |
+    TODO: AgeableBlock          started         |
+    TODO: CommandBlock          started         |
+    TODO: Chest                 started         |
+    TODO: Comparator            started         |
+    TODO: Head                                  |
+    TODO: DaylightDetector                      |
+    TODO: EnderChest                            |
+    TODO: EndPortalFrame                        |
+    TODO: Farmland                              |
+    TODO: Fire                                  |
+    TODO: Furnace                               |
+    TODO: Snowable                              |
+    TODO: PowerTransferable                     |
+    TODO: Jukebox                               |
+    TODO: Ladder                                |
+    TODO: TechnicalPiston                       |
+    TODO: NoteBlock                             |
+    TODO: Lightable                             |
+    TODO: RedstoneWallTorch                     |
+    TODO: Bisected                              |
+    TODO: Repeater                              |
+    TODO: SeaPickle                             |
+    TODO: Piston                                |
+    TODO: PistonHead                            |
+    TODO: StructureBlock                        |
+    TODO: Tripwire                              |
+    TODO: TripwireHook                          |
+    TODO: TurtleEgg                             |
+    TODO: WallSign                              |
+    TODO: WallFan               started         |
+    TODO: Cocoa                                 |
+    TODO: Rotatable                             |
+    
+     */
     
     public static final Material<Block> CACTUS = new Material<>("CACTUS", "cactus", new LegacyData(81, 0)); //todo also ageable
     public static final Material<Item> CACTUS_GREEN = new Material<>(Item.class, "INK_SACK", "CACTUS_GREEN", "dye", "cactus_green", new LegacyData(351, 2));
     public static final Material<StackedBlock> CAKE = new Material<>(StackedBlock.class, "CAKE_BLOCK", "CAKE", "cake", new LegacyData(92, 0)); //todo cake
     public static final Material<Item> CARROT = new Material<>(Item.class, "CARROT_ITEM", "CARROT", "carrot", new LegacyData(391, 0));
-    public static final Material<Block> CARROTS = new Material<>("CARROT", "CARROTS", "carrots", new LegacyData(141, 0)); //todo ageable
+    public static final Material<AgeableBlock> CARROTS = new Material<>("CARROT", "CARROTS", "carrots", new LegacyData(141, 0)); //todo ageable
     public static final Material<Item> CARROT_ON_A_STICK = new Material<>(Item.class, "CARROT_STICK", "CARROT_ON_A_STICK", "carrot_on_a_stick", 1, new LegacyData(398, 0)); //fixme maxstack 1
     public static final Material<StackedBlock> CARVED_PUMPKIN = new Material<>();
-    public static final Material<Block> CAULDRON = new Material<>(); //todo levelled
+    public static final Material<Cauldron> CAULDRON = new Material<>(); //todo "Cauldron"
     public static final Material<Block> CAVE_AIR = new Material<>();
-    public static final Material<Block> CAVE_SPIDER_SPAWN_EGG = new Material<>();
-    public static final Material<Block> CHAINMAIL_BOOTS = new Material<>(); //fixme maxstack 1
-    public static final Material<Block> CHAINMAIL_CHESTPLATE = new Material<>(); //fixme maxstack 1
-    public static final Material<Block> CHAINMAIL_HELMET = new Material<>(); //fixme maxstack 1
-    public static final Material<Block> CHAINMAIL_LEGGINGS = new Material<>(); //fixme maxstack 1
-    public static final Material<Block> CHAIN_COMMAND_BLOCK = new Material<>();
-    public static final Material<Block> CHARCOAL = new Material<>();
-    public static final Material<Block> CHEST = new Material<>();
-    public static final Material<Block> CHEST_MINECART = new Material<>(); //fixme maxstack 1
-    public static final Material<Block> CHICKEN = new Material<>();
-    public static final Material<Block> CHICKEN_SPAWN_EGG = new Material<>();
-    public static final Material<Block> CHIPPED_ANVIL = new Material<>();
-    public static final Material<Block> CHISELED_QUARTZ_BLOCK = new Material<>();
-    public static final Material<Block> CHISELED_RED_SANDSTONE = new Material<>();
-    public static final Material<Block> CHISELED_SANDSTONE = new Material<>();
-    public static final Material<Block> CHISELED_STONE_BRICKS = new Material<>();
-    public static final Material<Block> CHORUS_FLOWER = new Material<>();
-    public static final Material<Block> CHORUS_FRUIT = new Material<>();
-    public static final Material<Block> CHORUS_PLANT = new Material<>();
-    public static final Material<Block> CLAY = new Material<>();
-    public static final Material<Block> CLAY_BALL = new Material<>();
-    public static final Material<Block> CLOCK = new Material<>();
-    public static final Material<Block> COAL = new Material<>();
-    public static final Material<Block> COAL_BLOCK = new Material<>();
-    public static final Material<Block> COAL_ORE = new Material<>();
-    public static final Material<Block> COARSE_DIRT = new Material<>();
-    public static final Material<Block> COBBLESTONE = new Material<>();
-    public static final Material<Block> COBBLESTONE_SLAB = new Material<>();
-    public static final Material<Block> COBBLESTONE_STAIRS = new Material<>();
-    public static final Material<Block> COBBLESTONE_WALL = new Material<>();
-    public static final Material<Block> COBWEB = new Material<>();
-    public static final Material<Block> COCOA = new Material<>();
-    public static final Material<Block> COCOA_BEANS = new Material<>();
-    public static final Material<Block> COD = new Material<>();
-    public static final Material<Block> COD_BUCKET = new Material<>(); //fixme maxstack 1
-    public static final Material<Block> COD_SPAWN_EGG = new Material<>();
-    public static final Material<Block> COMMAND_BLOCK = new Material<>();
-    public static final Material<Block> COMMAND_BLOCK_MINECART = new Material<>(); //fixme maxstack 1
-    public static final Material<Block> COMPARATOR = new Material<>();
-    public static final Material<Block> COMPASS = new Material<>();
-    public static final Material<Block> CONDUIT = new Material<>();
-    public static final Material<Block> COOKED_BEEF = new Material<>();
-    public static final Material<Block> COOKED_CHICKEN = new Material<>();
-    public static final Material<Block> COOKED_COD = new Material<>();
-    public static final Material<Block> COOKED_MUTTON = new Material<>();
-    public static final Material<Block> COOKED_PORKCHOP = new Material<>();
-    public static final Material<Block> COOKED_RABBIT = new Material<>();
-    public static final Material<Block> COOKED_SALMON = new Material<>();
-    public static final Material<Block> COOKIE = new Material<>();
-    public static final Material<Block> COW_SPAWN_EGG = new Material<>();
-    public static final Material<Block> CRACKED_STONE_BRICKS = new Material<>();
-    public static final Material<Block> CRAFTING_TABLE = new Material<>();
-    public static final Material<Block> CREEPER_HEAD = new Material<>();
-    public static final Material<Block> CREEPER_SPAWN_EGG = new Material<>();
-    public static final Material<Block> CREEPER_WALL_HEAD = new Material<>();
-    public static final Material<Block> CUT_RED_SANDSTONE = new Material<>();
-    public static final Material<Block> CUT_SANDSTONE = new Material<>();
-    public static final Material<Block> CYAN_BANNER = new Material<>(); //fixme maxstack 16
-    public static final Material<Block> CYAN_BED = new Material<>(); //fixme maxstack 1
-    public static final Material<Block> CYAN_CARPET = new Material<>();
-    public static final Material<Block> CYAN_CONCRETE = new Material<>();
-    public static final Material<Block> CYAN_CONCRETE_POWDER = new Material<>();
-    public static final Material<Block> CYAN_DYE = new Material<>();
+    public static final Material<Item> CAVE_SPIDER_SPAWN_EGG = new Material<>();
+    public static final Material<Item> CHAINMAIL_BOOTS = new Material<>(); //fixme maxstack 1
+    public static final Material<Item> CHAINMAIL_CHESTPLATE = new Material<>(); //fixme maxstack 1
+    public static final Material<Item> CHAINMAIL_HELMET = new Material<>(); //fixme maxstack 1
+    public static final Material<Item> CHAINMAIL_LEGGINGS = new Material<>(); //fixme maxstack 1
+    public static final Material<CommandBlock> CHAIN_COMMAND_BLOCK = new Material<>();
+    public static final Material<Item> CHARCOAL = new Material<>();
+    public static final Material<Chest> CHEST = new Material<>();
+    public static final Material<Item> CHEST_MINECART = new Material<>(); //fixme maxstack 1
+    public static final Material<Item> CHICKEN = new Material<>();
+    public static final Material<Item> CHICKEN_SPAWN_EGG = new Material<>();
+    public static final Material<StackedBlock> CHIPPED_ANVIL = new Material<>();
+    public static final Material<StackedBlock> CHISELED_QUARTZ_BLOCK = new Material<>();
+    public static final Material<StackedBlock> CHISELED_RED_SANDSTONE = new Material<>();
+    public static final Material<StackedBlock> CHISELED_SANDSTONE = new Material<>();
+    public static final Material<StackedBlock> CHISELED_STONE_BRICKS = new Material<>();
+    public static final Material<Ageable> CHORUS_FLOWER = new Material<>();
+    public static final Material<Item> CHORUS_FRUIT = new Material<>();
+    public static final Material<MultiDirectional> CHORUS_PLANT = new Material<>();
+    public static final Material<StackedBlock> CLAY = new Material<>();
+    public static final Material<Item> CLAY_BALL = new Material<>();
+    public static final Material<Item> CLOCK = new Material<>();
+    public static final Material<Item> COAL = new Material<>();
+    public static final Material<StackedBlock> COAL_BLOCK = new Material<>();
+    public static final Material<StackedBlock> COAL_ORE = new Material<>();
+    public static final Material<StackedBlock> COARSE_DIRT = new Material<>();
+    public static final Material<StackedBlock> COBBLESTONE = new Material<>();
+    public static final Material<Slab> COBBLESTONE_SLAB = new Material<>();
+    public static final Material<Stairs> COBBLESTONE_STAIRS = new Material<>();
+    public static final Material<Divider> COBBLESTONE_WALL = new Material<>();
+    public static final Material<StackedBlock> COBWEB = new Material<>();
+    public static final Material<Block> COCOA = new Material<>(); //TODO "cocoa"
+    public static final Material<Item> COCOA_BEANS = new Material<>();
+    public static final Material<Item> COD = new Material<>();
+    public static final Material<Item> COD_BUCKET = new Material<>(); //fixme maxstack 1
+    public static final Material<Item> COD_SPAWN_EGG = new Material<>();
+    public static final Material<CommandBlock> COMMAND_BLOCK = new Material<>();
+    public static final Material<Item> COMMAND_BLOCK_MINECART = new Material<>(); //fixme maxstack 1
+    public static final Material<Comparator> COMPARATOR = new Material<>();
+    public static final Material<Item> COMPASS = new Material<>();
+    public static final Material<StackedBlock> CONDUIT = new Material<>();
+    public static final Material<Item> COOKED_BEEF = new Material<>();
+    public static final Material<Item> COOKED_CHICKEN = new Material<>();
+    public static final Material<Item> COOKED_COD = new Material<>();
+    public static final Material<Item> COOKED_MUTTON = new Material<>();
+    public static final Material<Item> COOKED_PORKCHOP = new Material<>();
+    public static final Material<Item> COOKED_RABBIT = new Material<>();
+    public static final Material<Item> COOKED_SALMON = new Material<>();
+    public static final Material<Item> COOKIE = new Material<>();
+    public static final Material<Item> COW_SPAWN_EGG = new Material<>();
+    public static final Material<StackedBlock> CRACKED_STONE_BRICKS = new Material<>();
+    public static final Material<StackedBlock> CRAFTING_TABLE = new Material<>();
+    public static final Material<Block> CREEPER_HEAD = new Material<>(); //TODO rotatable
+    public static final Material<Item> CREEPER_SPAWN_EGG = new Material<>();
+    public static final Material<Directional> CREEPER_WALL_HEAD = new Material<>();
+    public static final Material<StackedBlock> CUT_RED_SANDSTONE = new Material<>();
+    public static final Material<StackedBlock> CUT_SANDSTONE = new Material<>();
+    public static final Material<Banner> CYAN_BANNER = new Material<>(); //fixme maxstack 16
+    public static final Material<Bed> CYAN_BED = new Material<>(); //fixme maxstack 1
+    public static final Material<StackedBlock> CYAN_CARPET = new Material<>();
+    public static final Material<StackedBlock> CYAN_CONCRETE = new Material<>();
+    public static final Material<StackedBlock> CYAN_CONCRETE_POWDER = new Material<>();
+    public static final Material<Item> CYAN_DYE = new Material<>();
     public static final Material<Directional> CYAN_GLAZED_TERRACOTTA = new Material<>();
     public static final Material<Directional> CYAN_SHULKER_BOX = new Material<>(); //fixme maxstack 1
     public static final Material<StackedBlock> CYAN_STAINED_GLASS = new Material<>();
@@ -236,7 +281,7 @@ public final class Material<T extends MaterialType> {
     public static final Material<Banner> CYAN_WALL_BANNER = new Material<>();
     public static final Material<StackedBlock> CYAN_WOOL = new Material<>();
     
-    
+    /*
     public static final Material<Block> DAMAGED_ANVIL = new Material<>();
     public static final Material<Block> DANDELION = new Material<>();
     public static final Material<Block> DANDELION_YELLOW = new Material<>();
@@ -948,7 +993,7 @@ public final class Material<T extends MaterialType> {
     public static final Material<Block> ZOMBIE_SPAWN_EGG = new Material<>();
     public static final Material<Block> ZOMBIE_VILLAGER_SPAWN_EGG = new Material<>();
     public static final Material<Block> ZOMBIE_WALL_HEAD = new Material<>();
-    
+    */
     
     static {
         for (Field f : Material.class.getFields()) {
@@ -1163,7 +1208,7 @@ public final class Material<T extends MaterialType> {
      * Gets the Bukkit {@link org.bukkit.Material} corresponding to the version.
      * @return The material to be used
      */
-    public final org.bukkit.Material getBukkitMaterial() {
+    public final org.bukkit.Material asBukkit() {
         if (MaterialBridge.isPretechnical()) {
             if (!hasLegacyData()) return null;
             else return org.bukkit.Material.valueOf(legacy);
