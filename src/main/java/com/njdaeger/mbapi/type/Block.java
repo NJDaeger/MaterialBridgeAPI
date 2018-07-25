@@ -21,14 +21,14 @@ public final class Block extends BlockType<Block> {
     @Override
     public void setBlock(Location location, boolean setIfDifferent, boolean applyPhysics) {
         org.bukkit.block.Block block = location.getBlock();
-        if (!block.getType().equals(getBukkitMaterial())) {
-            if (setIfDifferent) block.setType(getBukkitMaterial(), applyPhysics);
+        if (!block.getType().equals(asBukkit())) {
+            if (setIfDifferent) block.setType(asBukkit(), applyPhysics);
             else return;
         }
         if (MaterialBridge.isPretechnical()) {
             Util.setData(block, getLegacyData(), applyPhysics);
             return;
         }
-        block.setType(getBukkitMaterial(), applyPhysics);//block has no special properties, we can just set it to its proper type in 1.13
+        block.setType(asBukkit(), applyPhysics);//block has no special properties, we can just set it to its proper type in 1.13
     }
 }

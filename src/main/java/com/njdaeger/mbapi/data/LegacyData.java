@@ -1,5 +1,7 @@
 package com.njdaeger.mbapi.data;
 
+import java.util.function.Supplier;
+
 /**
  * Legacy data of the material.
  * <p>This legacy data is no longer supported by Mojang- This could be removed in a later release.
@@ -7,7 +9,7 @@ package com.njdaeger.mbapi.data;
 public final class LegacyData {
     
     private final int id;
-    private final int durability;
+    private short durability;
     
     /**
      * Creates legacy data for the given material
@@ -16,7 +18,7 @@ public final class LegacyData {
      */
     public LegacyData(int id, int durability) {
         this.id = id;
-        this.durability = durability;
+        this.durability = Short.parseShort(Integer.toString(durability));
     }
     
     /**
@@ -32,7 +34,15 @@ public final class LegacyData {
      * @return The legacy durability
      */
     public short getDurability() {
-        return Short.parseShort(Integer.toString(durability));
+        return durability;
+    }
+    
+    /**
+     * Calculates the durability based on the current states of the given material.
+     * @param supplier The new durability.
+     */
+    public Short getDurability(Supplier<Short> supplier) {
+        return supplier.get();
     }
     
 }

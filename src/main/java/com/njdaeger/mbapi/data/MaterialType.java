@@ -50,7 +50,7 @@ public abstract class MaterialType<T extends MaterialType> {
         return material.getNominalId();
     }
     
-    public org.bukkit.Material getBukkitMaterial() {
+    public org.bukkit.Material asBukkit() {
         return material.asBukkit();
     }
 }

@@ -20,7 +20,7 @@ public final class StackedBlock extends StackedBlockType<StackedBlock> {
                 Util.setData(block, getLegacyData(), applyPhysics);
                 return;
             }
-            block.setType(getBukkitMaterial(), applyPhysics);//block has no special properties, we can just set it to its proper type in 1.13
+            block.setType(asBukkit(), applyPhysics);//block has no special properties, we can just set it to its proper type in 1.13
         }
     }
 }

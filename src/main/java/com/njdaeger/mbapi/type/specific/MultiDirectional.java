@@ -4,7 +4,6 @@ import com.njdaeger.mbapi.Material;
 import com.njdaeger.mbapi.Util;
 import com.njdaeger.mbapi.data.StackedBlockType;
 import com.njdaeger.mbapi.properties.data.Direction;
-import org.bukkit.Location;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -34,7 +33,7 @@ public abstract class MultiDirectional extends StackedBlockType<MultiDirectional
     
     @Override
     public void addDirection(Direction direction) {
-        if (isAllowedDirection(direction)) current.add(direction);
+        if (isAllowedDirection(direction) && !hasDirection(direction)) current.add(direction);
     }
     
     @Override

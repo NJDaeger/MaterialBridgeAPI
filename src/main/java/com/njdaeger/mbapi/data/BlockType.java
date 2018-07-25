@@ -17,10 +17,10 @@ public abstract class BlockType<T extends MaterialType> extends MaterialType<T> 
     
     protected boolean isValid(Location location, boolean setIfDifferent, boolean applyPhysics) {
         Block block = location.getBlock();
-        if (getBukkitMaterial() == null) return false;
-        if (!block.getType().equals(getBukkitMaterial())) {
+        if (asBukkit() == null) return false;
+        if (!block.getType().equals(asBukkit())) {
             if (setIfDifferent) {
-                block.setType(getBukkitMaterial(), applyPhysics);
+                block.setType(asBukkit(), applyPhysics);
                 return true;
             }
         }

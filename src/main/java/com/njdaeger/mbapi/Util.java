@@ -1,9 +1,7 @@
 package com.njdaeger.mbapi;
 
-import com.njdaeger.mbapi.data.LegacyData;
 import com.njdaeger.mbapi.properties.data.Direction;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -35,7 +33,7 @@ public final class Util {
      * @deprecated Only to be used for PreTechnical worlds.
      */
     @Deprecated
-    public static void setData(Block block, LegacyData data, boolean applyPhysics) {
+    public static void setData(Block block, short data, boolean applyPhysics) {
         if (MaterialBridge.isPretechnical()) {
             if (setData == null) {
                 try {
@@ -46,7 +44,7 @@ public final class Util {
                 }
             }
             try {
-                setData.invoke(block, (byte)data.getDurability(), applyPhysics);
+                setData.invoke(block, Byte.valueOf(Short.toString(data)), applyPhysics);
             }
             catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
