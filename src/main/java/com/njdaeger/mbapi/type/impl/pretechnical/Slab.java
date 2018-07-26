@@ -17,7 +17,7 @@ public final class Slab extends com.njdaeger.mbapi.type.specific.Slab {
             
             short data = getLegacyData().getDurability(() -> {
                 if (getType() == SlabType.DOUBLE) return getLegacyData().getDurability();
-                return Short.valueOf(Integer.toString(getType() == SlabType.BOTTOM ? getLegacyData().getDurability() + 8 : getLegacyData().getDurability() - 8));
+                return Short.valueOf(Integer.toString(getType() == SlabType.BOTTOM ? getLegacyData().getDurability() : getLegacyData().getDurability() + 8));
             });
             
             Util.setData(location.getBlock(), data, applyPhysics);

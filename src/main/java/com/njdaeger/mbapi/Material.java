@@ -2,6 +2,9 @@ package com.njdaeger.mbapi;
 
 import com.njdaeger.mbapi.data.LegacyData;
 import com.njdaeger.mbapi.data.MaterialType;
+import com.njdaeger.mbapi.exceptions.ConstantNotFoundException;
+import com.njdaeger.mbapi.exceptions.IncompatibleVersionException;
+import com.njdaeger.mbapi.exceptions.TypeNotCreatedException;
 import com.njdaeger.mbapi.type.Block;
 import com.njdaeger.mbapi.type.Item;
 import com.njdaeger.mbapi.type.StackedBlock;
@@ -10,8 +13,10 @@ import com.njdaeger.mbapi.type.specific.AgeableBlock;
 import com.njdaeger.mbapi.type.specific.Banner;
 import com.njdaeger.mbapi.type.specific.Bed;
 import com.njdaeger.mbapi.type.specific.BubbleColumn;
+import com.njdaeger.mbapi.type.specific.Cake;
 import com.njdaeger.mbapi.type.specific.Cauldron;
 import com.njdaeger.mbapi.type.specific.Chest;
+import com.njdaeger.mbapi.type.specific.Cocoa;
 import com.njdaeger.mbapi.type.specific.CommandBlock;
 import com.njdaeger.mbapi.type.specific.Comparator;
 import com.njdaeger.mbapi.type.specific.Directional;
@@ -23,12 +28,16 @@ import com.njdaeger.mbapi.type.specific.MultiDirectional;
 import com.njdaeger.mbapi.type.specific.Pillar;
 import com.njdaeger.mbapi.type.specific.PressurePlate;
 import com.njdaeger.mbapi.type.specific.RedstoneRail;
+import com.njdaeger.mbapi.type.specific.Rotatable;
 import com.njdaeger.mbapi.type.specific.Sapling;
 import com.njdaeger.mbapi.type.specific.Slab;
 import com.njdaeger.mbapi.type.specific.Stairs;
 import com.njdaeger.mbapi.type.specific.Switch;
 import com.njdaeger.mbapi.type.specific.Trapdoor;
+import com.njdaeger.mbapi.type.specific.WallFan;
 import com.njdaeger.mbapi.type.specific.Waterlogged;
+import com.njdaeger.mbapi.version.Version;
+import com.njdaeger.mbapi.version.v113;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -46,7 +55,7 @@ public final class Material<T extends MaterialType> {
     //A's are done.
     public static final Material<Block> AIR = new Material<>("AIR", "air", new LegacyData(0, 0));
     public static final Material<Item> ACACIA_BOAT = new Material<>(Item.class, "BOAT_ACACIA","ACACIA_BOAT", "acacia_boat", 1, new LegacyData(447, 0));
-    public static final Material<Switch> ACACIA_BUTTON = new Material<>(Switch.class, "ACACIA_BUTTON", "acacia_button");
+    @v113 public static final Material<Switch> ACACIA_BUTTON = new Material<>(Switch.class, "ACACIA_BUTTON", "acacia_button");
     public static final Material<Door> ACACIA_DOOR = new Material<>(Door.class, "ACACIA_DOOR", "acacia_door", new LegacyData(196, 0));
     public static final Material<Divider> ACACIA_FENCE = new Material<>("ACACIA_FENCE", "acacia_fence", new LegacyData(192, 0));
     public static final Material<Gate> ACACIA_FENCE_GATE = new Material<>(Gate.class, "ACACIA_FENCE_GATE", "acacia_fence_gate", new LegacyData(187, 0));
@@ -54,10 +63,10 @@ public final class Material<T extends MaterialType> {
     public static final Material<Leaves> ACACIA_LEAVES = new Material<>(Leaves.class, "LEAVES_2", "ACACIA_LEAVES", "acacia_leaves", "leaves2", new LegacyData(161, 0));
     public static final Material<Pillar> ACACIA_LOG = new Material<>(Pillar.class, "LOG_2", "ACACIA_LOG", "log2", "acacia_log", new LegacyData(162, 0));
     public static final Material<StackedBlock> ACACIA_PLANKS = new Material<>(StackedBlock.class, "WOOD", "ACACIA_PLANKS", "planks", "acacia_planks", new LegacyData(5, 4));
-    public static final Material<PressurePlate> ACACIA_PRESSURE_PLATE = new Material<>(PressurePlate.class, "ACACIA_PRESSURE_PLATE", "acacia_pressure_plate");
+    @v113 public static final Material<PressurePlate> ACACIA_PRESSURE_PLATE = new Material<>(PressurePlate.class, "ACACIA_PRESSURE_PLATE", "acacia_pressure_plate");
     public static final Material<Sapling> ACACIA_SAPLING = new Material<>(Sapling.class, "SAPLING", "ACACIA_SAPLING", "sapling", "acacia_sapling", new LegacyData(6, 4));
     public static final Material<Slab> ACACIA_SLAB = new Material<>(Slab.class, "WOOD_STEP", "ACACIA_SLAB", "wooden_slab", "acacia_slab", new LegacyData(126, 4));
-    public static final Material<Trapdoor> ACACIA_TRAPDOOR = new Material<>(Trapdoor.class, "ACACIA_TRAPDOOR", "acacia_trapdoor");
+    @v113 public static final Material<Trapdoor> ACACIA_TRAPDOOR = new Material<>(Trapdoor.class, "ACACIA_TRAPDOOR", "acacia_trapdoor");
     public static final Material<Pillar> ACACIA_BARK = new Material<>(Pillar.class, "LOG_2", "ACACIA_WOOD", "log_2", "acacia_wood", new LegacyData(162, 12));
     public static final Material<RedstoneRail> ACTIVATOR_RAIL = new Material<>(RedstoneRail.class, "ACTIVATOR_RAIL", "activator_rail", new LegacyData(157, 0));
     public static final Material<StackedBlock> ALLIUM = new Material<>(StackedBlock.class, "RED_ROSE", "ALLIUM", "red_flower", "allium", new LegacyData(38, 2));
@@ -82,18 +91,18 @@ public final class Material<T extends MaterialType> {
     public static final Material<Item> BEETROOT_SEEDS = new Material<>(Item.class, "BEETROOT_SEEDS", "beetroot_seeds", new LegacyData(435, 0));
     public static final Material<Item> BEETROOT_SOUP = new Material<>(Item.class, "BEETROOT_SOUP", "beetroot_soup", 1, new LegacyData(436, 0));
     public static final Material<Item> BIRCH_BOAT = new Material<>(Item.class, "BOAT_BIRCH", "BIRCH_BOAT", "birch_boat", 1, new LegacyData(445, 0));
-    public static final Material<Switch> BIRCH_BUTTON = new Material<>(Switch.class, "BIRCH_BUTTON", "birch_button");
+    @v113 public static final Material<Switch> BIRCH_BUTTON = new Material<>(Switch.class, "BIRCH_BUTTON", "birch_button");
     public static final Material<Door> BIRCH_DOOR = new Material<>(Door.class, "BIRCH_DOOR", "birch_door", new LegacyData(194, 0));
     public static final Material<Divider> BIRCH_FENCE = new Material<>(Divider.class, "BIRCH_FENCE", "birch_fence", new LegacyData(189, 0));
     public static final Material<Gate> BIRCH_FENCE_GATE = new Material<>(Gate.class, "BIRCH_FENCE_GATE", "birch_fence_gate", new LegacyData(184, 0));
     public static final Material<Leaves> BIRCH_LEAVES = new Material<>(Leaves.class, "LEAVES", "BIRCH_LEAVES", "leaves", "birch_leaves", new LegacyData(18, 2));
     public static final Material<Pillar> BIRCH_LOG = new Material<>(Pillar.class, "LOG", "BIRCH_LOG", "log", "birch_log", new LegacyData(17, 2));
     public static final Material<StackedBlock> BIRCH_PLANKS = new Material<>(StackedBlock.class, "WOOD", "BIRCH_PLANKS", "planks", "birch_planks", new LegacyData(5, 2));
-    public static final Material<PressurePlate> BIRCH_PRESSURE_PLATE = new Material<>(PressurePlate.class, "BIRCH_PRESSURE_PLATE", "birch_pressure_plate");
+    @v113 public static final Material<PressurePlate> BIRCH_PRESSURE_PLATE = new Material<>(PressurePlate.class, "BIRCH_PRESSURE_PLATE", "birch_pressure_plate");
     public static final Material<Sapling> BIRCH_SAPLING = new Material<>(Sapling.class, "SAPLING", "BIRCH_SAPLING", "sapling", "birch_sapling", new LegacyData(6, 2));
     public static final Material<Slab> BIRCH_SLAB = new Material<>(Slab.class, "WOOD_STEP", "BIRCH_SLAB", "wooden_slab", "birch_slab", new LegacyData(126, 2));
     public static final Material<Stairs> BIRCH_STAIRS = new Material<>(Stairs.class, "BIRCH_WOOD_STAIRS", "BIRCH_STAIRS", "birch_stairs", new LegacyData(135, 0));
-    public static final Material<Trapdoor> BIRCH_TRAPDOOR = new Material<>(Trapdoor.class, "BIRCH_TRAPDOOR", "birch_trapdoor");
+    @v113 public static final Material<Trapdoor> BIRCH_TRAPDOOR = new Material<>(Trapdoor.class, "BIRCH_TRAPDOOR", "birch_trapdoor");
     public static final Material<Pillar> BIRCH_BARK = new Material<>(Pillar.class, "LOG", "BIRCH_WOOD", "log", "birch_wood", new LegacyData(5, 14));
     public static final Material<Banner> BLACK_BANNER = new Material<>(Banner.class, "STANDING_BANNER", "BLACK_BANNER", "banner", "black_banner", 16, new LegacyData(425, 0));
     public static final Material<Bed> BLACK_BED = new Material<>(Bed.class, "BED_BLOCK", "BLACK_BED", "bed", "black_bed", 1, new LegacyData(355, 15));
@@ -116,12 +125,12 @@ public final class Material<T extends MaterialType> {
     public static final Material<StackedBlock> BLUE_CONCRETE = new Material<>(StackedBlock.class, "CONCRETE", "BLUE_CONCRETE", "concrete", "blue_concrete", new LegacyData(251, 11));
     public static final Material<StackedBlock> BLUE_CONCRETE_POWDER = new Material<>(StackedBlock.class, "CONCRETE_POWDER", "BLUE_CONCRETE_POWDER", "concrete_powder", "blue_concrete_powder", new LegacyData(252, 11));
     public static final Material<Directional> BLUE_GLAZED_TERRACOTTA = new Material<>(Directional.class, "BLUE_GLAZED_TERRACOTTA", "blue_glazed_terracotta", new LegacyData(246, 0));
-    public static final Material<StackedBlock> BLUE_ICE = new Material<>(StackedBlock.class, "BLUE_ICE", "blue_ice");
+    @v113 public static final Material<StackedBlock> BLUE_ICE = new Material<>(StackedBlock.class, "BLUE_ICE", "blue_ice");
     public static final Material<StackedBlock> BLUE_ORCHID = new Material<>(StackedBlock.class, "RED_ROSE", "BLUE_ORCHID", "red_flower", "blue_orchid", new LegacyData(38, 1));
     public static final Material<Directional> BLUE_SHULKER_BOX = new Material<>(Directional.class, "BLUE_SHULKER_BOX", "blue_shulker_box", 1, new LegacyData(230, 0));
     public static final Material<StackedBlock> BLUE_STAINED_GLASS = new Material<>(StackedBlock.class, "STAINED_GLASS", "BLUE_STAINED_GLASS", "stained_glass", "blue_stained_glass", new LegacyData(95, 11));
     public static final Material<Divider> BLUE_STAINED_GLASS_PANE = new Material<>(Divider.class, "STAINED_GLASS_PANE", "BLUE_STAINED_GLASS_PANE", "stained_glass_pane", "blue_stained_glass_pane", new LegacyData(160, 11));
-    public static final Material<Directional> BLUE_TERRACOTTA = new Material<>(Directional.class, "STAINED_CLAY", "BLUE_TERRACOTTA", "stained_hardended_clay", "blue_terracotta", new LegacyData(159, 11));
+    public static final Material<StackedBlock> BLUE_TERRACOTTA = new Material<>(StackedBlock.class, "STAINED_CLAY", "BLUE_TERRACOTTA", "stained_hardended_clay", "blue_terracotta", new LegacyData(159, 11));
     public static final Material<Banner> BLUE_WALL_BANNER = new Material<>(Banner.class, "WALL_BANNER", "BLUE_WALL_BANNER", "standing_banner", "wall_banner", new LegacyData(177, 11));
     public static final Material<StackedBlock> BLUE_WOOL = new Material<>(StackedBlock.class, "WOOL", "BLUE_WOOL", "wool", "blue_wool", new LegacyData(35, 11));
     public static final Material<Item> BONE = new Material<>(Item.class, "BONE", "bone", new LegacyData(352, 0));
@@ -131,10 +140,10 @@ public final class Material<T extends MaterialType> {
     public static final Material<StackedBlock> BOOKSHELF = new Material<>(StackedBlock.class, "BOOKSHELF", "bookshelf", new LegacyData(47, 0));
     public static final Material<Item> BOW = new Material<>(Item.class, "BOW", "bow", new LegacyData(261, 0));
     public static final Material<Item> BOWL = new Material<>(Item.class, "BOWL", "bowl", new LegacyData(281, 0));
-    public static final Material<StackedBlock> BRAIN_CORAL = new Material<>(StackedBlock.class, "BRAIN_CORAL", "brain_coral");
-    public static final Material<StackedBlock> BRAIN_CORAL_BLOCK = new Material<>(StackedBlock.class, "BRAIN_CORAL_BLOCK", "brain_coral_block");
-    public static final Material<Waterlogged> BRAIN_CORAL_FAN = new Material<>(Waterlogged.class, "BRAIN_CORAL_FAN", "brain_coral_fan");
-    public static final Material<Block> BRAIN_CORAL_WALL_FAN = new Material<>();//todo
+    @v113 public static final Material<StackedBlock> BRAIN_CORAL = new Material<>(StackedBlock.class, "BRAIN_CORAL", "brain_coral");
+    @v113 public static final Material<StackedBlock> BRAIN_CORAL_BLOCK = new Material<>(StackedBlock.class, "BRAIN_CORAL_BLOCK", "brain_coral_block");
+    @v113 public static final Material<Waterlogged> BRAIN_CORAL_FAN = new Material<>(Waterlogged.class, "BRAIN_CORAL_FAN", "brain_coral_fan");
+    @v113 public static final Material<WallFan> BRAIN_CORAL_WALL_FAN = new Material<>(WallFan.class, "BRAIN_CORAL_WALL_FAN", "brain_coral_wall_fan");
     public static final Material<Item> BREAD = new Material<>(Item.class, "BREAD", "bread", new LegacyData(297, 0));
     public static final Material<StackedBlock> BREWING_STAND = new Material<>(StackedBlock.class, "BREWING_STAND", "brewing_stand", new LegacyData(117, 0));//todo brewing
     public static final Material<Item> BRICK = new Material<>(Item.class, "CLAY_BRICK", "BRICK", "brick", new LegacyData(336, 0));
@@ -155,10 +164,10 @@ public final class Material<T extends MaterialType> {
     public static final Material<StackedBlock> BROWN_TERRACOTTA = new Material<>(StackedBlock.class, "STAINED_CLAY", "BROWN_TERRACOTTA", "stained_hardended_clay", "brown_terracotta", new LegacyData(159, 12));
     public static final Material<Banner> BROWN_WALL_BANNER = new Material<>(Banner.class, "WALL_BANNER", "BROWN_WALL_BANNER", "standing_banner", "wall_banner", new LegacyData(177, 12));
     public static final Material<StackedBlock> BROWN_WOOL = new Material<>(StackedBlock.class, "WOOL", "BROWN_WOOL", "wool", "brown_wool", new LegacyData(35, 12));
-    public static final Material<BubbleColumn> BUBBLE_COLUMN = new Material<>(BubbleColumn.class, "BUBBLE_COLUMN", "bubble_column");
-    public static final Material<StackedBlock> BUBBLE_CORAL = new Material<>(StackedBlock.class, "BUBBLE_CORAL", "bubble_coral");
-    public static final Material<StackedBlock> BUBBLE_CORAL_BLOCK = new Material<>(StackedBlock.class, "BUBBLE_CORAL_BLOCK", "bubble_coral_block");
-    public static final Material<StackedBlock> BUBBLE_CORAL_FAN = new Material<>(StackedBlock.class, "BUBBLE_CORAL_FAN", "bubble_coral_fan");
+    @v113 public static final Material<BubbleColumn> BUBBLE_COLUMN = new Material<>(BubbleColumn.class, "BUBBLE_COLUMN", "bubble_column");
+    @v113 public static final Material<StackedBlock> BUBBLE_CORAL = new Material<>(StackedBlock.class, "BUBBLE_CORAL", "bubble_coral");
+    @v113 public static final Material<StackedBlock> BUBBLE_CORAL_BLOCK = new Material<>(StackedBlock.class, "BUBBLE_CORAL_BLOCK", "bubble_coral_block");
+    @v113 public static final Material<StackedBlock> BUBBLE_CORAL_FAN = new Material<>(StackedBlock.class, "BUBBLE_CORAL_FAN", "bubble_coral_fan");
     public static final Material<Item> BUCKET = new Material<>(Item.class, "BUCKET", "bucket", 16, new LegacyData(325, 0));
     
     /*
@@ -196,90 +205,91 @@ public final class Material<T extends MaterialType> {
     TODO: TurtleEgg                             |
     TODO: WallSign                              |
     TODO: WallFan               started         |
-    TODO: Cocoa                                 |
-    TODO: Rotatable                             |
+    TODO: Cocoa                 started         |
+    TODO: Rotatable             started         |
+    TODO: Cake                  started         |
     
      */
     
-    public static final Material<Block> CACTUS = new Material<>("CACTUS", "cactus", new LegacyData(81, 0)); //todo also ageable
+    public static final Material<Ageable> CACTUS = new Material<>(Ageable.class, "CACTUS", "cactus", new LegacyData(81, 0));
     public static final Material<Item> CACTUS_GREEN = new Material<>(Item.class, "INK_SACK", "CACTUS_GREEN", "dye", "cactus_green", new LegacyData(351, 2));
-    public static final Material<StackedBlock> CAKE = new Material<>(StackedBlock.class, "CAKE_BLOCK", "CAKE", "cake", new LegacyData(92, 0)); //todo cake
+    public static final Material<Cake> CAKE = new Material<>(Cake.class, "CAKE_BLOCK", "CAKE", "cake", new LegacyData(92, 0)); //todo cake
     public static final Material<Item> CARROT = new Material<>(Item.class, "CARROT_ITEM", "CARROT", "carrot", new LegacyData(391, 0));
-    public static final Material<AgeableBlock> CARROTS = new Material<>("CARROT", "CARROTS", "carrots", new LegacyData(141, 0)); //todo ageable
-    public static final Material<Item> CARROT_ON_A_STICK = new Material<>(Item.class, "CARROT_STICK", "CARROT_ON_A_STICK", "carrot_on_a_stick", 1, new LegacyData(398, 0)); //fixme maxstack 1
-    public static final Material<StackedBlock> CARVED_PUMPKIN = new Material<>();
-    public static final Material<Cauldron> CAULDRON = new Material<>(); //todo "Cauldron"
-    public static final Material<Block> CAVE_AIR = new Material<>();
-    public static final Material<Item> CAVE_SPIDER_SPAWN_EGG = new Material<>();
-    public static final Material<Item> CHAINMAIL_BOOTS = new Material<>(); //fixme maxstack 1
-    public static final Material<Item> CHAINMAIL_CHESTPLATE = new Material<>(); //fixme maxstack 1
-    public static final Material<Item> CHAINMAIL_HELMET = new Material<>(); //fixme maxstack 1
-    public static final Material<Item> CHAINMAIL_LEGGINGS = new Material<>(); //fixme maxstack 1
-    public static final Material<CommandBlock> CHAIN_COMMAND_BLOCK = new Material<>();
-    public static final Material<Item> CHARCOAL = new Material<>();
-    public static final Material<Chest> CHEST = new Material<>();
-    public static final Material<Item> CHEST_MINECART = new Material<>(); //fixme maxstack 1
-    public static final Material<Item> CHICKEN = new Material<>();
-    public static final Material<Item> CHICKEN_SPAWN_EGG = new Material<>();
-    public static final Material<StackedBlock> CHIPPED_ANVIL = new Material<>();
-    public static final Material<StackedBlock> CHISELED_QUARTZ_BLOCK = new Material<>();
-    public static final Material<StackedBlock> CHISELED_RED_SANDSTONE = new Material<>();
-    public static final Material<StackedBlock> CHISELED_SANDSTONE = new Material<>();
-    public static final Material<StackedBlock> CHISELED_STONE_BRICKS = new Material<>();
-    public static final Material<Ageable> CHORUS_FLOWER = new Material<>();
-    public static final Material<Item> CHORUS_FRUIT = new Material<>();
-    public static final Material<MultiDirectional> CHORUS_PLANT = new Material<>();
-    public static final Material<StackedBlock> CLAY = new Material<>();
-    public static final Material<Item> CLAY_BALL = new Material<>();
-    public static final Material<Item> CLOCK = new Material<>();
-    public static final Material<Item> COAL = new Material<>();
-    public static final Material<StackedBlock> COAL_BLOCK = new Material<>();
-    public static final Material<StackedBlock> COAL_ORE = new Material<>();
-    public static final Material<StackedBlock> COARSE_DIRT = new Material<>();
-    public static final Material<StackedBlock> COBBLESTONE = new Material<>();
-    public static final Material<Slab> COBBLESTONE_SLAB = new Material<>();
-    public static final Material<Stairs> COBBLESTONE_STAIRS = new Material<>();
-    public static final Material<Divider> COBBLESTONE_WALL = new Material<>();
-    public static final Material<StackedBlock> COBWEB = new Material<>();
-    public static final Material<Block> COCOA = new Material<>(); //TODO "cocoa"
-    public static final Material<Item> COCOA_BEANS = new Material<>();
-    public static final Material<Item> COD = new Material<>();
-    public static final Material<Item> COD_BUCKET = new Material<>(); //fixme maxstack 1
-    public static final Material<Item> COD_SPAWN_EGG = new Material<>();
-    public static final Material<CommandBlock> COMMAND_BLOCK = new Material<>();
-    public static final Material<Item> COMMAND_BLOCK_MINECART = new Material<>(); //fixme maxstack 1
-    public static final Material<Comparator> COMPARATOR = new Material<>();
-    public static final Material<Item> COMPASS = new Material<>();
-    public static final Material<StackedBlock> CONDUIT = new Material<>();
-    public static final Material<Item> COOKED_BEEF = new Material<>();
-    public static final Material<Item> COOKED_CHICKEN = new Material<>();
-    public static final Material<Item> COOKED_COD = new Material<>();
-    public static final Material<Item> COOKED_MUTTON = new Material<>();
-    public static final Material<Item> COOKED_PORKCHOP = new Material<>();
-    public static final Material<Item> COOKED_RABBIT = new Material<>();
-    public static final Material<Item> COOKED_SALMON = new Material<>();
-    public static final Material<Item> COOKIE = new Material<>();
-    public static final Material<Item> COW_SPAWN_EGG = new Material<>();
-    public static final Material<StackedBlock> CRACKED_STONE_BRICKS = new Material<>();
-    public static final Material<StackedBlock> CRAFTING_TABLE = new Material<>();
-    public static final Material<Block> CREEPER_HEAD = new Material<>(); //TODO rotatable
-    public static final Material<Item> CREEPER_SPAWN_EGG = new Material<>();
-    public static final Material<Directional> CREEPER_WALL_HEAD = new Material<>();
-    public static final Material<StackedBlock> CUT_RED_SANDSTONE = new Material<>();
-    public static final Material<StackedBlock> CUT_SANDSTONE = new Material<>();
-    public static final Material<Banner> CYAN_BANNER = new Material<>(); //fixme maxstack 16
-    public static final Material<Bed> CYAN_BED = new Material<>(); //fixme maxstack 1
-    public static final Material<StackedBlock> CYAN_CARPET = new Material<>();
-    public static final Material<StackedBlock> CYAN_CONCRETE = new Material<>();
-    public static final Material<StackedBlock> CYAN_CONCRETE_POWDER = new Material<>();
-    public static final Material<Item> CYAN_DYE = new Material<>();
-    public static final Material<Directional> CYAN_GLAZED_TERRACOTTA = new Material<>();
-    public static final Material<Directional> CYAN_SHULKER_BOX = new Material<>(); //fixme maxstack 1
-    public static final Material<StackedBlock> CYAN_STAINED_GLASS = new Material<>();
-    public static final Material<Divider> CYAN_STAINED_GLASS_PANE = new Material<>();
-    public static final Material<StackedBlock> CYAN_TERRACOTTA = new Material<>();
-    public static final Material<Banner> CYAN_WALL_BANNER = new Material<>();
-    public static final Material<StackedBlock> CYAN_WOOL = new Material<>();
+    public static final Material<AgeableBlock> CARROTS = new Material<>("CARROT", "CARROTS", "carrots", new LegacyData(141, 0));
+    public static final Material<Item> CARROT_ON_A_STICK = new Material<>(Item.class, "CARROT_STICK", "CARROT_ON_A_STICK", "carrot_on_a_stick", 1, new LegacyData(398, 0));
+    public static final Material<Directional> CARVED_PUMPKIN = new Material<>(Directional.class, "PUMPKIN", "CARVED_PUMPKIN", "pumpkin", "carved_pumpkin", new LegacyData(86, 0));
+    public static final Material<Cauldron> CAULDRON = new Material<>(Cauldron.class, "CAULDRON", "cauldron", new LegacyData(118, 0));
+    @v113 public static final Material<Block> CAVE_AIR = new Material<>("CAVE_AIR", "cave_air");
+    public static final Material<Item> CAVE_SPIDER_SPAWN_EGG = new Material<>(Item.class, "MONSTER_EGG", "CAVE_SPIDER_SPAWN_EGG", "spawn_egg", "cave_spider_spawn_egg", new LegacyData(383, 59));
+    public static final Material<Item> CHAINMAIL_BOOTS = new Material<>(Item.class, "CHAINMAIL_BOOTS", "chainmail_boots", 1, new LegacyData(305, 0));
+    public static final Material<Item> CHAINMAIL_CHESTPLATE = new Material<>(Item.class, "CHAINMAIL_CHESTPLATE", "chainmail_chestplate", 1, new LegacyData(303, 0));
+    public static final Material<Item> CHAINMAIL_HELMET = new Material<>(Item.class, "CHAINMAIL_HELMET", "chainmail_helmet", 1, new LegacyData(302, 0));
+    public static final Material<Item> CHAINMAIL_LEGGINGS = new Material<>(Item.class, "CHAINMAIL_LEGGINGS", "chainmail_leggings", 1, new LegacyData(304, 0));
+    public static final Material<CommandBlock> CHAIN_COMMAND_BLOCK = new Material<>(CommandBlock.class, "CHAIN_COMMAND_BLOCK", "chain_command_block", new LegacyData(211, 0));
+    public static final Material<Item> CHARCOAL = new Material<>(Item.class, "COAL", "CHARCOAL", "charcoal", new LegacyData(263, 1));
+    public static final Material<Chest> CHEST = new Material<>(Chest.class, "CHEST", "chest", new LegacyData(54, 0));
+    public static final Material<Item> CHEST_MINECART = new Material<>(Item.class, "STORAGE_MINECART", "CHEST_MINECART", "chest_minecart", 1, new LegacyData(342, 0));
+    public static final Material<Item> CHICKEN = new Material<>(Item.class, "RAW_CHICKEN", "CHICKEN", "chicken", new LegacyData(365, 0));
+    public static final Material<Item> CHICKEN_SPAWN_EGG = new Material<>(Item.class, "MONSTER_EGG", "CHICKEN_SPAWN_EGG", "spawn_egg", "chicken_spawn_egg", new LegacyData(383, 93));
+    public static final Material<Directional> CHIPPED_ANVIL = new Material<>(Directional.class, "ANVIL", "CHIPPED_ANVIL", "anvil", "chipped_anvil", new LegacyData(145, 1));
+    public static final Material<StackedBlock> CHISELED_QUARTZ_BLOCK = new Material<>(StackedBlock.class, "QUARTZ_BLOCK", "CHISELED_QUARTZ_BLOCK", "quartz", "chiseled_quartz_block", new LegacyData(155, 1));
+    public static final Material<StackedBlock> CHISELED_RED_SANDSTONE = new Material<>(StackedBlock.class, "RED_SANDSTONE", "CHISELED_RED_SANDSTONE", "red_sandstone", "chiseled_red_sandstone", new LegacyData(179, 1));
+    public static final Material<StackedBlock> CHISELED_SANDSTONE = new Material<>(StackedBlock.class, "SANDSTONE", "CHISELED_SANDSTONE", "sandstone", "chiseled_sandstone", new LegacyData(24, 1));
+    public static final Material<StackedBlock> CHISELED_STONE_BRICKS = new Material<>(StackedBlock.class, "SMOOTH_BRICK", "CHISELED_STONE_BRICKS", "stonebrick", "chiseled_stone_bricks", new LegacyData(98, 3));
+    public static final Material<Ageable> CHORUS_FLOWER = new Material<>(Ageable.class, "CHORUS_FLOWER", "chorus_flower", new LegacyData(200, 0));
+    public static final Material<Item> CHORUS_FRUIT = new Material<>(Item.class, "CHORUS_FRUIT", "chorus_fruit", new LegacyData(432, 0));
+    public static final Material<MultiDirectional> CHORUS_PLANT = new Material<>(MultiDirectional.class, "CHORUS_PLANT", "chorus_plant", new LegacyData(199, 0));
+    public static final Material<StackedBlock> CLAY = new Material<>(StackedBlock.class, "CLAY", "clay", new LegacyData(82, 0));
+    public static final Material<Item> CLAY_BALL = new Material<>(Item.class, "CLAY_BALL", "clay", new LegacyData(337, 0));
+    public static final Material<Item> CLOCK = new Material<>(Item.class, "WATCH", "CLOCK", "clock", new LegacyData(347, 0));
+    public static final Material<Item> COAL = new Material<>(Item.class, "COAL", "coal", "coal", new LegacyData(263, 0));
+    public static final Material<StackedBlock> COAL_BLOCK = new Material<>(StackedBlock.class, "COAL_BLOCK", "coal_block", new LegacyData(173, 0));
+    public static final Material<StackedBlock> COAL_ORE = new Material<>(StackedBlock.class, "COAL_ORE", "coal_ore", new LegacyData(16, 0));
+    public static final Material<StackedBlock> COARSE_DIRT = new Material<>(StackedBlock.class, "DIRT", "COARSE_DIRT", "dirt", "coarse_dirt", new LegacyData(3, 1));
+    public static final Material<StackedBlock> COBBLESTONE = new Material<>(StackedBlock.class, "COBBLESTONE", "cobblestone", new LegacyData(4, 0));
+    public static final Material<Slab> COBBLESTONE_SLAB = new Material<>(Slab.class, "STEP", "COBBLESTONE_SLAB", "stone_slab", "cobblestone_slab", new LegacyData(44, 3));
+    public static final Material<Stairs> COBBLESTONE_STAIRS = new Material<>(Stairs.class, "COBBLESTONE_STAIRS", "COBBLESTONE_STAIRS", "stone_stairs", "cobblestone_stairs", new LegacyData(67, 0));
+    public static final Material<Divider> COBBLESTONE_WALL = new Material<>(Divider.class, "COBBLE_WALL", "COBBLESTONE_WALL", "cobblestone_wall", new LegacyData(139, 0));
+    public static final Material<StackedBlock> COBWEB = new Material<>(StackedBlock.class, "WEB", "COBWEB", "cobweb", new LegacyData(30, 0));
+    public static final Material<Cocoa> COCOA = new Material<>(Cocoa.class, "COCOA", "cocoa", new LegacyData(127, 0));
+    public static final Material<Item> COCOA_BEANS = new Material<>(Item.class, "INK_SACK", "COCOA_BEANS", "dye", "cocoa_beans", new LegacyData(351, 3));
+    public static final Material<Item> COD = new Material<>(Item.class, "RAW_FISH", "COD", "fish","cod", new LegacyData(349, 0));
+    @v113 public static final Material<Item> COD_BUCKET = new Material<>(Item.class, "COD_BUCKET", "cod_bucket");
+    @v113 public static final Material<Item> COD_SPAWN_EGG = new Material<>(Item.class, "COD_SPAWN_EGG", "cod_spawn_egg");
+    public static final Material<CommandBlock> COMMAND_BLOCK = new Material<>(CommandBlock.class, "COMMAND", "COMMAND_BLOCK", "command_block", new LegacyData(137, 0));
+    public static final Material<Item> COMMAND_BLOCK_MINECART = new Material<>(Item.class, "COMMAND_MINECART", "COMMAND_BLOCK_MINECART", "command_block_minecart", new LegacyData(422, 0));
+    public static final Material<Comparator> COMPARATOR = new Material<>(Comparator.class, "REDSTONE_COMPARATOR_OFF", "COMPARATOR", "unpowered_comparator", "powered_comparator", new LegacyData(149, 0));
+    public static final Material<Item> COMPASS = new Material<>(Item.class, "COMPASS", "compass", new LegacyData(345, 0));
+    @v113 public static final Material<StackedBlock> CONDUIT = new Material<>(StackedBlock.class, "CONDUIT", "conduit");
+    public static final Material<Item> COOKED_BEEF = new Material<>(Item.class, "COOKED_BEEF", "cooked_beef", new LegacyData(364, 0));
+    public static final Material<Item> COOKED_CHICKEN = new Material<>(Item.class, "COOKED_CHICKEN", "cooked_chicken", new LegacyData(366, 0));
+    public static final Material<Item> COOKED_COD = new Material<>(Item.class, "COOKED_FISH", "COOKED_COD", "cooked_fish", "cooked_cod", new LegacyData(350, 0));
+    public static final Material<Item> COOKED_MUTTON = new Material<>(Item.class, "COOKED_MUTTON", "cooked_mutton", new LegacyData(424, 0));
+    public static final Material<Item> COOKED_PORKCHOP = new Material<>(Item.class, "GRILLED_PORK", "COOKED_PORKCHOP", "cooked_porkchop", new LegacyData(320, 0));
+    public static final Material<Item> COOKED_RABBIT = new Material<>(Item.class, "COOKED_RABBIT", "cooked_rabbit", new LegacyData(412, 0));
+    public static final Material<Item> COOKED_SALMON = new Material<>(Item.class, "COOKED_FISH", "COOKED_SALMON", "cooked_fish", "cooked_salmon", new LegacyData(350, 1));
+    public static final Material<Item> COOKIE = new Material<>(Item.class, "COOKIE", "cookie", new LegacyData(357, 0));
+    public static final Material<Item> COW_SPAWN_EGG = new Material<>(Item.class, "MONSTER_EGG", "COW_SPAWN_EGG", "spawn_egg", "cow_spawn_egg", new LegacyData(383, 92));
+    public static final Material<StackedBlock> CRACKED_STONE_BRICKS = new Material<>(StackedBlock.class, "SMOOTH_BRICK", "CRACKED_STONE_BRICKS", "stonebrick", "cracked_stone_bricks", new LegacyData(98, 2));
+    public static final Material<StackedBlock> CRAFTING_TABLE = new Material<>(StackedBlock.class, "WORKBENCH", "CRAFTING_TABLE", "crafting_table", new LegacyData(58, 0));
+    public static final Material<Rotatable> CREEPER_HEAD = new Material<>(Rotatable.class, "SKULL", "CREEPER_HEAD", "skull", "creeper_head", new LegacyData(144, 4));
+    public static final Material<Item> CREEPER_SPAWN_EGG = new Material<>(Item.class, "MONSTER_EGG", "CREEPER_SPAWN_EGG", "spawn_egg", "creeper_spawn_egg", new LegacyData(383, 50));
+    public static final Material<Directional> CREEPER_WALL_HEAD = new Material<>(Directional.class, "SKULL", "CREEPER_WALL_HEAD", "skull", "creeper_wall_head", new LegacyData(144, 4));
+    public static final Material<StackedBlock> CUT_RED_SANDSTONE = new Material<>(StackedBlock.class, "RED_SANDSTONE", "CUT_RED_SANDSTONE", "red_sandstone", "cut_red_sandstone", new LegacyData(179, 2));
+    public static final Material<StackedBlock> CUT_SANDSTONE = new Material<>(StackedBlock.class, "SANDSTONE", "CUT_SANDSTONE", "sandstone", "cut_sandstone", new LegacyData(24, 2));
+    public static final Material<Banner> CYAN_BANNER = new Material<>(Banner.class, "STANDING_BANNER", "CYAN_BANNER", "banner", "cyan_banner", 16, new LegacyData(425, 6));
+    public static final Material<Bed> CYAN_BED = new Material<>(Bed.class, "BED_BLOCK", "CYAN_BED", "bed", "cyan_bed", 1, new LegacyData(355, 9));
+    public static final Material<StackedBlock> CYAN_CARPET = new Material<>(StackedBlock.class, "CARPET", "CYAN_CARPET", "carper", "cyan_carpet", new LegacyData(171, 9));
+    public static final Material<StackedBlock> CYAN_CONCRETE = new Material<>(StackedBlock.class, "CONCRETE", "CYAN_CONCRETE", "concrete", "cyan_concrete", new LegacyData(251, 9));
+    public static final Material<StackedBlock> CYAN_CONCRETE_POWDER = new Material<>(StackedBlock.class, "CONCRETE_POWDER", "CYAN_CONCRETE_POWDER", "concrete_powder", "cyan_concrete_powder", new LegacyData(252, 9));
+    public static final Material<Item> CYAN_DYE = new Material<>(Item.class, "INK_SACK", "CYAN_DYE", "dye", "cyan_dye", new LegacyData(351, 6));
+    public static final Material<Directional> CYAN_GLAZED_TERRACOTTA = new Material<>(Directional.class, "CYAN_GLAZED_TERRACOTTA", "cyan_glazed_terracotta", new LegacyData(244, 0));
+    public static final Material<Directional> CYAN_SHULKER_BOX = new Material<>(Directional.class, "CYAN_SHULKER_BOX", "cyan_shulker_box", new LegacyData(228, 0));
+    public static final Material<StackedBlock> CYAN_STAINED_GLASS = new Material<>(StackedBlock.class, "STAINED_GLASS", "CYAN_STAIMED_GLASS", "stained_glass", "cyan_stained_glass", new LegacyData(95, 9));
+    public static final Material<Divider> CYAN_STAINED_GLASS_PANE = new Material<>(Divider.class, "STAINED_GLASS_PANE", "CYAB_STAINED_GLASS_PANE", "stained_glass_pane", "cyan_stained_glass_pane", new LegacyData(160, 9));
+    public static final Material<StackedBlock> CYAN_TERRACOTTA = new Material<>(StackedBlock.class, "STAINED_CLAY", "CYAN_TERRACOTTA", "stained_hardened_clay", "cyan_terracotta", new LegacyData(159, 9));
+    public static final Material<Banner> CYAN_WALL_BANNER = new Material<>(Banner.class, "WALL_BANNER", "CYAN_WALL_BANNER", "standing_banner", "wall_banner", new LegacyData(177, 9));
+    public static final Material<StackedBlock> CYAN_WOOL = new Material<>(StackedBlock.class, "WOOL", "CYAN_WOOL", "wool", "cyan_wool", new LegacyData(35, 9));
     
     /*
     public static final Material<Block> DAMAGED_ANVIL = new Material<>();
@@ -997,10 +1007,13 @@ public final class Material<T extends MaterialType> {
     
     static {
         for (Field f : Material.class.getFields()) {
+            if (MaterialBridge.isPretechnical() && f.isAnnotationPresent(v113.class)) continue;
             if (!f.getType().equals(Material.class)) continue;
             for (Material<?> mat : MATERIAL_PRE_MAP) {
                 try {
                     if (f.get(null).equals(mat)) {
+                        if (f.isAnnotationPresent(v113.class)) mat.version = Version.TECHNICAL;
+                        else mat.version = Version.PRETECHNICAL;
                         mat.constantName = f.getName();
                         MATERIALS.put(f.getName(), mat);
                     }
@@ -1012,6 +1025,7 @@ public final class Material<T extends MaterialType> {
         }
     }
     
+    private Version version;
     private String constantName;
     private final String legacy;
     private final String current;
@@ -1093,6 +1107,22 @@ public final class Material<T extends MaterialType> {
     
     private Material(String id, String nominalId) {
         this((Class<T>)Block.class, id, nominalId);
+    }
+    
+    /**
+     * Returns the version this material can be accessed.
+     * @return The version this material was added. (1.12 and down are all "PRETECHNICAL")
+     */
+    public Version getVersion() {
+        return version;
+    }
+    
+    /**
+     * Gets whether this material is compatible with the current server version
+     * @return True if its compatible with the current version. False otherwise.
+     */
+    public boolean isCompatible() {
+        return MaterialBridge.getVersion().getVersionNumber() >= getVersion().getVersionNumber();
     }
     
     /**
@@ -1193,6 +1223,7 @@ public final class Material<T extends MaterialType> {
             Class<T> cls;
             
             if (MaterialBridge.isPretechnical()) {
+                if (!isCompatible()) throw new IncompatibleVersionException(this);
                 cls = (Class<T>)Class.forName("com.njdaeger.mbapi.type.impl.pretechnical." + type.getSimpleName());
             } else cls = (Class<T>)Class.forName("com.njdaeger.mbapi.type.impl.technical." + type.getSimpleName());
             
@@ -1201,7 +1232,7 @@ public final class Material<T extends MaterialType> {
         catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        throw new TypeNotCreatedException(constantName);
+        throw new TypeNotCreatedException(this);
     }
     
     /**
@@ -1250,6 +1281,85 @@ public final class Material<T extends MaterialType> {
     }
     
     /**
+     * Attempts to get a modern material via its legacy name.
+     * @param name The name of the Legacy Material
+     * @return The modern Material for this legacy material.
+     * @throws NullPointerException If the name specified is null
+     * @throws ConstantNotFoundException If the Legacy name could not be matched to a modern constant
+     */
+    public static Material<?> ofLegacy(String name) {
+        if (name == null) throw new NullPointerException("Name is null");
+        for (Material<?> material : MATERIALS.values()) {
+            if (material.getLegacyName().equals(name)) return material;
+        }
+        throw new ConstantNotFoundException(true, name);
+    }
+    
+    /**
+     * Attempts to get the modern material via its Legacy name
+     * @param type The specific class block type of this material.
+     * @param name The name of the legacy material
+     * @return The modern material for this legacy material.
+     * @throws NullPointerException If the name specified is null
+     * @throws ConstantNotFoundException If the Legacy name could not be matched to a modern constant
+     */
+    public static <T extends MaterialType> Material<T> ofLegacy(Class<T> type, String name) {
+        return (Material<T>)ofLegacy(name);
+    }
+    
+    /**
+     * Attempts to get the modern material via its legacy data
+     * @param id The legacy numeric ID
+     * @param durability The legacy data value
+     * @return The modern material for this legacy material.
+     * @throws ConstantNotFoundException If the legacy data could not be found
+     */
+    public static Material<?> fromData(int id, short durability) {
+        for (Material<?> material : MATERIALS.values()) {
+            if (!material.hasLegacyData()) continue;
+            if (material.getLegacyData().getId() == id && material.getLegacyData().getDurability() == durability) return material;
+        }
+        throw new ConstantNotFoundException("A constant could not be matched to (ID:" + id + " Data:" + durability + ")");
+    }
+    
+    /**
+     * Attempts to get the modern material via its legacy data
+     * @param id The legacy numeric ID
+     * @return The modern material for this legacy material.
+     * @throws ConstantNotFoundException If the legacy data could not be found
+     */
+    public static Material<?> fromData(int id) {
+        for (Material<?> material : MATERIALS.values()) {
+            if (!material.hasLegacyData()) continue;
+            if (material.getLegacyData().getId() == id) return material;
+        }
+        throw new ConstantNotFoundException("A constant could not be matched to (ID:" + id + ")");
+    }
+    
+    /**
+     * Attempts to get the modern materail via its legacy data
+     * @param blockType The specific class block type of this material.
+     * @param id The legacy numeric ID
+     * @param durability The legacy data value
+     * @return The modern material for this legacy material.
+     * @throws ConstantNotFoundException If the legacy data could not be found
+     */
+    public static <T extends MaterialType> Material<T> fromData(Class<T> blockType, int id, short durability) {
+        return (Material<T>)fromData(id, durability);
+    }
+    
+    /**
+     * Attempts to get the modern materail via its legacy data
+     * @param blockType The specific class block type of this material.
+     * @param id The legacy numeric ID
+     * @return The modern material for this legacy material.
+     * @throws ConstantNotFoundException If the legacy data could not be found
+     */
+    public static <T extends MaterialType> Material<T> fromData(Class<T> blockType, int id) {
+        return (Material<T>)fromData(id);
+    }
+    
+    /**
      * Gets a material via its constant name in this class.
      * @param name The name of the material constant
      * @return The material if it exists.
@@ -1261,11 +1371,11 @@ public final class Material<T extends MaterialType> {
         for (Material<?> material : MATERIALS.values()) {
             if (material.name().equals(name)) return material;
         }
-        throw new IllegalArgumentException("No enum constant " + Material.class.getCanonicalName() + "." + name);
+        throw new ConstantNotFoundException(false, name);
     }
     /**
      * Gets a material via its enum name.
-     * @param blockType The blocktype class of the material.
+     * @param blockType The specific class block type of this material.
      * @param name The name of the material constant
      * @return The material if it exists.
      * @throws NullPointerException if the name specified is null

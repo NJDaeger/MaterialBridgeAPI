@@ -20,9 +20,11 @@ public abstract class Fire extends BlockType<Fire> implements Ageable<Fire>, Mul
     
     public Fire(Material<Fire> material) {
         super(material);
-        this.allowedDirections = Util.allDirectionsExcept();
+        this.allowedDirections = Util.mainDirections();
+        allowedDirections.add(Direction.UP);
+        allowedDirections.add(Direction.DOWN);
         this.directions = new HashSet<>();
-        directions.add(Direction.SELF);
+        directions.add(Direction.UP);
         this.age = 0;
     }
     

@@ -1,5 +1,6 @@
 package com.njdaeger.mbapi;
 
+import com.njdaeger.mbapi.version.Version;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;

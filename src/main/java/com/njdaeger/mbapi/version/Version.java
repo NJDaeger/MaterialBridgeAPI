@@ -1,4 +1,4 @@
-package com.njdaeger.mbapi;
+package com.njdaeger.mbapi.version;
 
 public enum Version {
     
