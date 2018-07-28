@@ -129,4 +129,4 @@ local.properties
 # STS (Spring Tool Suite)
 .springBeans
 plugins/out/
-src/test/
+!/src/test/

@@ -13,7 +13,7 @@ public final class Stairs extends com.njdaeger.mbapi.type.specific.Stairs {
     @Override
     public void setBlock(Location location, boolean setIfDifferent, boolean applyPhysics) {
         if (isValid(location, setIfDifferent, applyPhysics)) {
-            Util.setData(location.getBlock(), getLegacyData(), applyPhysics);
+            Util.setData(location.getBlock(), getLegacyData().getDurability(), applyPhysics);
         }
     }
 }

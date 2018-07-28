@@ -16,7 +16,7 @@ public final class Banner extends com.njdaeger.mbapi.type.specific.Banner {
     @Override
     public void setBlock(Location location, boolean setIfDifferent, boolean applyPhysics) {
         if (isValid(location, setIfDifferent, applyPhysics)) {
-            Util.setData(location.getBlock(), getLegacyData(), applyPhysics);
+            Util.setData(location.getBlock(), getLegacyData().getDurability(), applyPhysics);
             Block block = location.getBlock();
             BlockState state = block.getState();
             org.bukkit.block.Banner bannerPatterns = (org.bukkit.block.Banner)state;

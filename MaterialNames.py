@@ -18,16 +18,16 @@ def generate_line(line, materialType, legacyId, currentId, legacyNominal, curren
         base = base + "\"" + currentNominal + "\", "
 
     if stack is not "64":
-        base = base + str(stack) + ", "
+        base = base + str(stack)
 
-    if oldId is not "-1":
-        base = base + "new LegacyData(" + oldId + ", "
+    if oldId is not "SKIPPED":
+        base = base + ", new LegacyData(" + oldId + ", "
 
-    if oldData is "-1":
-        if oldId is not "-1":
+    if oldData is "SKIPPED":
+        if oldId is not "SKIPPED":
             base = base + "0)"
     else:
-        if oldId is not "-1":
+        if oldId is not "SKIPPED":
             base = base + oldData + ")"
 
     return base + ");\n"
@@ -67,8 +67,8 @@ with open('Material.java') as materials:
             legacyNom = resolve_arg("LegacyNominal", None)
             currentNom = resolve_arg("CurrentNominal", "SKIPPED")
             stack = resolve_arg("Stack", "64")
-            oldId = resolve_arg("OldId", "-1")
-            oldData = resolve_arg("OldData", "-1")
+            oldId = resolve_arg("OldId", "SKIPPED")
+            oldData = resolve_arg("OldData", "SKIPPED")
 
             line = generate_line(test[0], matType, legacyId, currentId, legacyNom, currentNom, stack, oldId, oldData)
             print(line)

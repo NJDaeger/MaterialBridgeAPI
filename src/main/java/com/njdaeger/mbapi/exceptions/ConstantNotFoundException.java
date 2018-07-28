@@ -1,7 +1,5 @@
 package com.njdaeger.mbapi.exceptions;
 
-import com.njdaeger.mbapi.Material;
-
 public class ConstantNotFoundException extends RuntimeException {
     
     public ConstantNotFoundException(boolean legacy, String given) {

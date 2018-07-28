@@ -1,0 +1,360 @@
+We have alot of classes. I want to lay out all the states I need to consider.
+
+Anvils:                                                 1
+    - facing: north/south/east/west
+
+Standing Banners:                                       2
+    - rotation: All except Up, Down, and Self.
+
+Wall Banners:                                           1
+    - facing: north/south/east/west
+
+Beds:                                                   3
+    - facing: north/south/east/west
+    - occupied: t/f
+    - part: head/foot
+
+Beetroot:                                               4
+    - age: 0-3
+
+Bone Block:                                             5
+    - axis: x/y/z
+
+Brewing Stand:                                          6
+    - has_bottle_0: t/f
+    - has_bottle_1: t/f
+    - has_bottle_2: t/f
+
+Buttons:                                                7
+    - face: floor/ceiling/wall
+    - facing: north/south/east/west
+    - powered: t/f
+
+Cactus:                                                 4
+    - age: 0-15
+
+Cake:                                                   8
+    - bites: 0-6
+
+Carrot:                                                 4
+    - age: 0-7
+
+Cauldron:                                               9
+    - level: 0-3
+
+Chests:                                                 10
+    - facing: north/south/east/west
+    - type: single/left/right
+
+Chorus Flower:                                          4
+    - age: 0-5
+
+Chorus Plant:                                           11
+    - MultiDirectional: north/south/east/west/up/down
+
+Cobble Walls:                                           11
+    - MultiDirectional: north/south/east/west/up
+
+Cocoa:                                                  12
+    - age: 0-2
+    - facing: north/south/east/west
+
+Command Blocks:                                         13
+    - conditional: t/f
+    - facing: north/south/east/west/up/down
+
+Daylight Detector:                                      14
+    - inverted: t/f
+    - power: 0-15
+
+Dispenser:                                              15
+    - facing: north/south/east/west/up/down
+    - triggered: t/f
+
+Doors:                                                  16
+    - facing: north/south/east/west
+    - half: upper/lower
+    - hinge: left/right
+    - open: t/f
+    - powered: t/f
+
+Dropper:                                                15
+    - facing: north/south/east/west/up/down
+    - triggered: t/f
+
+Ender Chest:                                            1
+    - facing: north/south/east/west
+
+End Portal Frame:                                       16
+    - eye: t/f
+    - facing: north/south/east/west
+
+End Rod:                                                1
+    - facing: north/south/east/west/up/down
+
+Farmland:                                               17
+    - moisture: 0-7
+
+Fences:                                                 11
+    - MultiDirectional: north/south/east/west
+
+Fence Gates:                                            18
+    - facing: north/south/east/west
+    - in_wall: t/f
+    - open: t/f
+    - powered: t/f
+
+Fire:                                                   19
+    - age: 0-15
+    - MultiDirectional: north/south/east/west/up
+
+Frosted Ice:                                            4
+    - age: 0-3
+
+Furnace:                                                20
+    - facing: north/south/east/west
+    - lit: t/f
+
+Glass Panes:                                            11
+    - MultiDirectional: north/south/east/west
+
+Glazed Terracotta:                                      1
+    - facing: north/south/east/west
+
+Grasses:                                                21
+    - half: upper/lower
+
+Hay Bale:                                               5
+    - axis: x/y/z
+
+Hopper:                                                 22
+    - enabled: t/f
+    - facing: north/south/east/west/down
+
+Iron bars:                                              11
+    - MultiDirectional: north/south/east/west
+
+Jack o lantern:                                         1
+    - facing: north/south/east/west
+
+Jukebox:                                                23
+    - has_record: t/f
+
+Kelp:                                                   4
+    - age: 0-25
+
+Ladder:                                                 1
+    - facing: north/south/east/west
+
+Lava:                                                   24
+    - level: 0-15
+
+Leaves:                                                 25
+    - persistent: t/f
+    - distance: 1-7
+
+Lever:                                                  7
+    - face: floor/ceiling/wall
+    - facing: north/south/east/west
+    - powered: t/f
+
+Logs:                                                   5
+    - axis: x/y/z
+
+Melon Stem:                                             4
+    - age: 0-7
+
+Attached Melon Stem:                                    1
+    - facing: north/south/east/west
+
+Mushroom Block                                          11
+    - MultiDirectional: north/south/east/west/up/down
+
+Mycelium:                                               26
+    - Snowy: t/f
+
+Nether Wart:                                            4
+    - age: 0-3
+
+Piston:                                                 27
+    - extended: t/f
+    - facing: north/south/east/west/up/down
+
+Piston Head:                                            28
+    - facing: north/south/east/west/up/down
+    - short: t/f
+    - type: normal/sticky
+
+Piston Extension:                                       29
+    - facing: north/south/east/west/up/down
+    - type: normal/sticky
+
+Nether Portal Block:                                    5
+    - axis: x/z
+
+Observer:                                               30
+    - facing: north/south/east/west/up/down
+    - powered: t/f
+
+Podzol:                                                 26
+    - snowy: t/f
+
+Potato:                                                 4
+    - age: 0-7
+
+Pressure Plate:                                         31
+    - powered: t/f
+
+Weighted Pressure Plate:                                32
+    - power: 0-15
+
+Carved Pumpkin:                                         1
+    - facing: north/south/east/west
+
+Purpur Pillar:                                          5
+    - axis: x/y/z
+
+Quartz Pillar:                                          5
+    - axis: x/y/z
+
+Rails:                                                  33
+    - RailShape
+
+Redstone Rails:                                         34
+    - powered: t/f
+    - RailShape
+
+Redstone Comparator:                                    35
+    - facing: north/south/east/west
+    - mode: compare/subtract
+    - powered: t/f
+
+Redstone Dust:                                          36
+    - MultiDirectional: north/south/east/west
+    - power: 0-15
+
+Redstone Repeater:                                      37
+    - delay: 1-4
+    - facing: north/south/east/west
+    - locked: t/f
+    - powered: t/f
+
+Redstone Torch:                                         38
+    - facing: north/south/east/west
+    - lit: t/f
+
+Sapling:                                                39
+    - stage: 0-1
+
+Seagrass:                                               21
+    - half: upper/lower
+
+SeaPickle:                                              40
+    - pickles: 1-4
+
+Shulker Boxes:                                          1
+    - facing: north/south/east/west/up/down
+
+Sign:                                                   2
+    - rotation: All directions except Up, Down, and Self.
+
+Wall Sign:                                              1
+    - facing: north/south/east/west
+
+Torch:                                                  1
+    - facing: north/south/east/west/up
+
+Mob Head Floor:                                         2
+    - rotation: All directions except Up, Down, and Self.
+
+Mob Head Wall:                                          1
+    - facing: north/south/east/west
+
+Slabs:                                                  41
+    - type: top/bottom/double
+
+Snow:                                                   42
+    - layers: 1-8
+
+Stairs:                                                 43
+    - facing: north/south/east/west
+    - half: top/bottom
+    - StairShape
+
+Stucture Block                                          44
+    - mode: save/load/corner/data
+
+Sugar Canes:                                            4
+    - age: 0-15
+
+Tall Grass (sunflower, lilac, rose_bush, peony):        21
+    - half: upper/lower
+
+Trapdoor:                                               45
+    - facing: north/south/east/west
+    - half: top/bottom
+    - open: t/f
+    - powered: t/f
+
+Tripwire:                                               46
+    - attached: t/f
+    - disarmed: t/f
+    - facing: north/south/east/west
+    - powered: t/f
+
+Tripwire Hook:                                          47
+    - attached: t/f
+    - facing: north/south/east/west
+    - powered: t/f
+
+Turtle Egg:                                             48
+    - eggs: 1-4
+    - hatch: 0-2
+
+Vines:                                                  11
+    - MultiDirectional: north/south/east/west/up
+
+Water:                                                  9
+    - level: 0-15
+
+Wood:                                                   5
+    axis: x/y/z
+
+#############################################################################
+####    ###    ######   #####    ###     ####################################
+### #### ## #### ## ##### ## #### ## ########################################
+### ####### #### ## ##### ## ####### ########################################
+####   ####    ####       ## #######    #####################################
+######## ## ####### ##### ## ####### ########################################
+### #### ## ####### ##### ## #### ## ########################################
+####    ### ####### ##### ###    ###     ####################################
+#############################################################################
+
+1:
+    - Anvil                 Directional
+    - Wall Banners          Directional
+    - Ender Chest           Directional + Waterlogged -> EnderChest
+    - End Rod               Directional
+    - Glazed Terracotta     Directional
+    - Jack O Lantern        Directional
+    - Ladder                Directional + Waterlogged -> Ladder
+    - Attached Melon Stem   Directional
+    - Carved Pumpkin        Directional
+    - Shulker Boxes         Directional
+    - Torch                 Directional
+    - Mob Wall Head         Directional
+    - Wall Sign             Directional
+
+2:
+    - Standing Banners      Rotational
+    - Sign                  Rotational
+    - Mob Floor Head        Rotational
+
+3:
+    - Beds                  Bed
+
+4:
+    - Beetroot
+    - Cactus
+    - Carrot
+    -

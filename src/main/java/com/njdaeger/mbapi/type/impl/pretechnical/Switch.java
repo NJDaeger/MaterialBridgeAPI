@@ -13,7 +13,7 @@ public final class Switch extends com.njdaeger.mbapi.type.specific.Switch {
     @Override
     public void setBlock(Location location, boolean setIfDifferent, boolean applyPhysics) {
         if (isValid(location, setIfDifferent, applyPhysics)) {
-            Util.setData(location.getBlock(), getLegacyData(), applyPhysics);
+            Util.setData(location.getBlock(), getLegacyData().getDurability(), applyPhysics);
         }
     }
 }

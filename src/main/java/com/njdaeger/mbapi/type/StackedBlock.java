@@ -17,7 +17,7 @@ public final class StackedBlock extends StackedBlockType<StackedBlock> {
         if (isValid(location, setIfDifferent, applyPhysics)) {
             org.bukkit.block.Block block = location.getBlock();
             if (MaterialBridge.isPretechnical()) {
-                Util.setData(block, getLegacyData(), applyPhysics);
+                Util.setData(block, getLegacyData().getDurability(), applyPhysics);
                 return;
             }
             block.setType(asBukkit(), applyPhysics);//block has no special properties, we can just set it to its proper type in 1.13
